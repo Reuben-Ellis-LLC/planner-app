@@ -1,113 +1,368 @@
-import Image from "next/image";
+import React from 'react';
+import NextLink from 'next/link';
+import { Input } from '@/components/ui/input';
+import { Button as ShadButton } from '@/components/ui/button';
+// import { Button, Flex, Heading, Text } from '@radix-ui/themes';
+import { fetchUser } from './actions/user';
+import { SignInButton } from '@/components/ui/signInButton';
 
-export default function Home() {
+async function getData() {
+  const user = await fetchUser();
+  console.log(user);
+  // const user = {
+  //   object: 'user',
+  //   id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
+  //   email: 'ethriel3695@gmail.com',
+  //   emailVerified: true,
+  //   firstName: 'Reuben',
+  //   profilePictureUrl:
+  //     'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
+  //   lastName: 'Ellis',
+  //   createdAt: '2024-06-09T13:41:04.750Z',
+  //   updatedAt: '2024-06-09T13:41:04.750Z',
+  // };
+  return { user };
+}
+
+// export default async function HomePage() {
+//   const { user } = await getData();
+//   return (
+//     <Flex direction="column" align="center" gap="2">
+//       {user ? (
+//         <>
+//           <Heading size="8">
+//             Welcome back{user?.firstName && `, ${user?.firstName}`}
+//           </Heading>
+//           <Text size="5" color="gray">
+//             You are now authenticated into the application
+//           </Text>
+//           <Flex align="center" gap="3" mt="4">
+//             <Button asChild size="3" variant="soft">
+//               <NextLink href="/account">View account</NextLink>
+//             </Button>
+//             <SignInButton large />
+//           </Flex>
+//         </>
+//       ) : (
+//         <>
+//           <Heading size="8">AuthKit authentication example</Heading>
+//           <Text size="5" color="gray" mb="4">
+//             Sign in to view your account details
+//           </Text>
+//           <SignInButton large />
+//         </>
+//       )}
+//     </Flex>
+//   );
+// }
+
+export default async function HomePageLayout() {
+  // const user = storybookUser;
+  const { user } = await getData();
+  // const user = await getUser();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex flex-col min-h-[100dvh]">
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <NextLink
+          href="/"
+          className="flex items-center justify-center"
+          prefetch={false}
+        >
+          <MountainIcon className="h-6 w-6" />
+          <span className="sr-only">Planner App</span>
+        </NextLink>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <NextLink
+            href="#"
+            className="text-sm font-medium hover:underline underline-offset-4"
+            prefetch={false}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+            Features
+          </NextLink>
+          <NextLink
+            href="#"
+            className="text-sm font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Pricing
+          </NextLink>
+          <NextLink
+            href="#"
+            className="text-sm font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            About
+          </NextLink>
+          {user ? (
+            <NextLink
+              href="/events"
+              className="text-sm font-medium hover:underline underline-offset-4"
+              prefetch={false}
+            >
+              Events
+            </NextLink>
+          ) : null}
+          <SignInButton user={user} />
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+              <img
+                src="/placeholder.svg"
+                width="550"
+                height="550"
+                alt="Hero"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+              />
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                    Reclaim Your Time with Our Planner App
+                  </h1>
+                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                    Busy moms, rejoice! Our planner app is designed to save you
+                    hours by streamlining your schedule and keeping you
+                    organized. Embrace the digital convenience while and
+                    continue to use the paper planner you love.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <NextLink
+                    href="#"
+                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    prefetch={false}
+                  >
+                    Get Started
+                  </NextLink>
+                  <NextLink
+                    href="#"
+                    className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    prefetch={false}
+                  >
+                    Learn More
+                  </NextLink>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                  Busy Moms' Planner
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Simplify Your Schedule, Reclaim Your Time
+                </h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  Our planner app is designed with busy moms in mind. Say
+                  goodbye to the hassle of the traditional paper planner and
+                  embrace the convenience of a digital solution that keeps your
+                  schedule organized and accessible from anywhere.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <img
+                src="/placeholder.svg"
+                width="550"
+                height="310"
+                alt="Image"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+              />
+              <div className="flex flex-col justify-center space-y-4">
+                <ul className="grid gap-6">
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">Seamless Scheduling</h3>
+                      <p className="text-muted-foreground">
+                        Easily manage your appointments, events, and activities
+                        in one centralized location.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">Recurring Events</h3>
+                      <p className="text-muted-foreground">
+                        Set up recurring events like weekly meetings or monthly
+                        bills, and never miss a beat.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Personalized Reminders
+                      </h3>
+                      <p className="text-muted-foreground">
+                        Get timely reminders for your scheduled events, so
+                        you\'re always on top of your busy life.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">Print Your Schedule</h3>
+                      <p className="text-muted-foreground">
+                        Print your planner to take it with you wherever you go.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                Streamline Your Schedule, Maximize Your Productivity
+              </h2>
+              <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Our planner app is designed to help busy moms like you reclaim
+                your time and focus on what matters most. Embrace the digital
+                convenience while and continue to use the paper planner you
+                love.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
+              <NextLink
+                href="#"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                Get Started
+              </NextLink>
+              <NextLink
+                href="#"
+                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                Learn More
+              </NextLink>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                Experience the Convenience of Our Planner App
+              </h2>
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Busy moms, say goodbye to the hassle of traditional paper
+                planners and embrace the digital convenience of our app. Sign up
+                now to streamline your schedule and reclaim your time.
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-sm space-y-2">
+              <form className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="max-w-lg flex-1"
+                />
+                <ShadButton type="submit">Sign Up</ShadButton>
+              </form>
+              <p className="text-xs text-muted-foreground">
+                Sign up to get started with our planner app.{' '}
+                <NextLink
+                  href="#"
+                  className="underline underline-offset-2"
+                  prefetch={false}
+                >
+                  Terms &amp; Conditions
+                </NextLink>
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-10 sm:px-10 md:gap-16 md:grid-cols-2">
+              <div className="space-y-4">
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                  Busy Mom's Planner
+                </div>
+                <h2 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+                  Simplify Your Schedule, Reclaim Your Time
+                </h2>
+                <NextLink
+                  href="#"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                  prefetch={false}
+                >
+                  Get Started
+                </NextLink>
+              </div>
+              <div className="flex flex-col items-start space-y-4">
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                  Busy Mom's Planner
+                </div>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed">
+                  Our planner app is designed to help busy moms like you
+                  streamline your schedule and focus on what matters most.
+                  Embrace the digital convenience while and continue to use the
+                  paper planner you love.
+                </p>
+                <NextLink
+                  href="#"
+                  className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                  prefetch={false}
+                >
+                  Learn More
+                </NextLink>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+        <p className="text-xs text-muted-foreground">
+          &copy; 2024 Planner App. All rights reserved.
+        </p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+          <NextLink
+            href="#"
+            className="text-xs hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Terms of Service
+          </NextLink>
+          <NextLink
+            href="#"
+            className="text-xs hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Privacy
+          </NextLink>
+        </nav>
+      </footer>
+    </div>
+  );
+}
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+function MountainIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+    </svg>
   );
 }
