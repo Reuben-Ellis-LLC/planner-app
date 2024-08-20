@@ -5,5 +5,3 @@ export async function fetchUser() {
   const { user } = await getUser();
   return user;
 }
-
-export const getUserWorkOS = getUser;

@@ -7,7 +7,7 @@ import { authkitMiddleware } from '@workos-inc/authkit-nextjs';
 //   },
 // });
 
-export default authkitMiddleware();
+export default authkitMiddleware({ debug: true });
 
 // Match against pages that require authentication
 // Leave this out if you want authentication on every page in your application

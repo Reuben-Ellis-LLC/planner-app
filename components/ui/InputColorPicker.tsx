@@ -1,5 +1,5 @@
 import React from 'react';
-import InputColor from 'react-input-color';
+// import InputColor from 'react-input-color';
 
 export const InputColorPicker = () => {
   const [color, setColor] = React.useState<{ rgba: string }>({ rgba: '' });
@@ -8,11 +8,11 @@ export const InputColorPicker = () => {
 
   return (
     <div>
-      <InputColor
+      {/* <InputColor
         initialValue="#5e72e4"
         onChange={setColor}
         placement="right"
-      />
+      /> */}
       {/* <div
         style={{
           width: 50,

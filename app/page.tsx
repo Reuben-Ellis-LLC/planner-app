@@ -1,28 +1,16 @@
 import React from 'react';
 import NextLink from 'next/link';
+import { getUser, getSignInUrl, signOut } from '@workos-inc/authkit-nextjs';
 import { Input } from '@/components/ui/input';
 import { Button as ShadButton } from '@/components/ui/button';
 // import { Button, Flex, Heading, Text } from '@radix-ui/themes';
-import { fetchUser } from './actions/user';
+// import { fetchUser } from '#app/actions/user';
 import { SignInButton } from '@/components/ui/signInButton';
 
-async function getData() {
-  const user = await fetchUser();
-  console.log(user);
-  // const user = {
-  //   object: 'user',
-  //   id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-  //   email: 'ethriel3695@gmail.com',
-  //   emailVerified: true,
-  //   firstName: 'Reuben',
-  //   profilePictureUrl:
-  //     'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
-  //   lastName: 'Ellis',
-  //   createdAt: '2024-06-09T13:41:04.750Z',
-  //   updatedAt: '2024-06-09T13:41:04.750Z',
-  // };
-  return { user };
-}
+// async function getData() {
+//   const user = await fetchUser();
+//   return { user };
+// }
 
 // export default async function HomePage() {
 //   const { user } = await getData();
@@ -58,7 +46,7 @@ async function getData() {
 
 export default async function HomePageLayout() {
   // const user = storybookUser;
-  const { user } = await getData();
+  const { user } = await getUser();
   // const user = await getUser();
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -102,7 +90,11 @@ export default async function HomePageLayout() {
               Events
             </NextLink>
           ) : null}
-          <SignInButton user={user} />
+          <SignInButton
+            user={user}
+            getSignInUrl={getSignInUrl}
+            signOut={signOut}
+          />
         </nav>
       </header>
       <main className="flex-1">

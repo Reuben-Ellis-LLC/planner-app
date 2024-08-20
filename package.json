@@ -14,7 +14,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "imports": {
-    "#app/actions": {
+    "#app/actions/user": {
       "storybook": "./app/actions/user.mock.ts",
       "default": "./app/actions/user.ts"
     },
@@ -25,13 +25,13 @@
     ]
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.18.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
-    "@workos-inc/authkit-nextjs": "0.8.2",
+    "@workos-inc/authkit-nextjs": "0.9.0",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -39,23 +39,23 @@
     "lucide-react": "^0.416.0",
     "next": "14.2.5",
     "react": "^18",
-    "react-day-picker": "^9.0.4",
+    "react-day-picker": "^9.0.8",
     "react-dom": "^18",
     "stream-browserify": "^3.0.0",
-    "tailwind-merge": "^2.4.0",
+    "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
     "@radix-ui/themes": "^3.1.1",
-    "@storybook/addon-essentials": "^8.2.6",
-    "@storybook/addon-links": "^8.2.6",
-    "@storybook/blocks": "^8.2.6",
-    "@storybook/nextjs": "^8.2.6",
-    "@storybook/react": "^8.2.6",
-    "@storybook/test": "^8.2.6",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/nextjs": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^20.14.2",
+    "@types/node": "^22.4.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "date-fns": "^3.6.0",
@@ -63,17 +63,15 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "eslint-plugin-storybook": "^0.8.0",
-    "html-webpack-plugin": "^5.6.0",
     "install": "^0.13.0",
     "jspdf": "^2.5.1",
     "postcss": "^8",
-    "prisma": "^5.17.0",
-    "react-datepicker": "^7.3.0",
+    "prisma": "^5.18.0",
     "react-input-color": "^4.0.1",
     "react-to-print": "^2.15.1",
-    "storybook": "^8.2.6",
-    "tailwindcss": "^3.4.4",
+    "storybook": "^8.2.9",
+    "tailwindcss": "^3.4.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   }
 }

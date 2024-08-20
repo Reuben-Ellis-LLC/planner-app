@@ -6,4 +6,3 @@ import * as actual from './user';
 export * from './user';
 export const getUser = fn(getUserDefault).mockName('getUser');
 export const fetchUser = fn(actual.fetchUser).mockName('fetchUser');
-export const getUserWorkOS = fn(actual.getUserWorkOS).mockName('getUserWorkOS');

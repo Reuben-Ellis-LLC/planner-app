@@ -8,7 +8,7 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
-import InputColor from 'react-input-color';
+// import InputColor from 'react-input-color';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
@@ -39,7 +39,7 @@ import {
   TableBody,
   TableCell,
 } from './table';
-import { InputColorPicker } from './InputColorPicker';
+// import { InputColorPicker } from './InputColorPicker';
 
 export default function Planner({ currentDate = new Date(), user, events }) {
   const [userEvents, setEvents] = useState(events);
@@ -231,13 +231,13 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                   <Label htmlFor="color" className="text-right">
                     Color
                   </Label>
-                  <InputColor
+                  {/* <InputColor
                     initialValue="#5e72e4"
                     onChange={(value) =>
                       setNewEvent({ ...newEvent, color: value.rgba })
                     }
                     placement="right"
-                  />
+                  /> */}
                 </div>
               </div>
               <DialogFooter>
