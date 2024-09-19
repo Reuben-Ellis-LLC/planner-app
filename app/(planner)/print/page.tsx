@@ -1,4 +1,5 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import Planner from '@/components/ui/PlannerPDF';
 import { getUser } from '@/app/actions/user';
 import { getEvents } from '@/app/actions/events';
