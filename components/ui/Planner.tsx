@@ -39,6 +39,7 @@ import {
   TableBody,
   TableCell,
 } from './table';
+import { createEvent } from '@/app/actions/events';
 // import { InputColorPicker } from './InputColorPicker';
 
 export default function Planner({ currentDate = new Date(), user, events }) {
@@ -87,7 +88,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
   const [color, setColor] = React.useState<{ rgba: string }>({ rgba: '' });
-  const handleAddEvent = () => {
+  const handleAddEvent = async () => {
     setEvents([...userEvents, newEvent]);
     setNewEvent({
       title: newEvent.title,
@@ -99,12 +100,13 @@ export default function Planner({ currentDate = new Date(), user, events }) {
       userId: user?.id,
       color: newEvent.color,
     });
+    await createEvent(newEvent, user.user);
     setIsAddEventModalOpen(false);
   };
-  const handleDeleteEvent = (id) => {
+  const handleDeleteEvent = (id: string) => {
     setEvents(events.filter((event) => event.id !== id));
   };
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate(date);
   };
   return (
@@ -114,8 +116,9 @@ export default function Planner({ currentDate = new Date(), user, events }) {
           <NextLink href="/">Home</NextLink>
         </h1>
         <div className="flex items-center gap-4">
+          <NextLink href="/print">Print</NextLink>
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger>
               <Button size="sm">
                 <CalendarDaysIcon className="mr-2 h-4 w-4" />
                 {format(selectedDate, 'MMM d, yyyy')}
@@ -126,6 +129,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                 mode="single"
                 selected={selectedDate}
                 onSelect={handleDateChange}
+                required={true}
               />
             </PopoverContent>
           </Popover>
@@ -133,7 +137,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
             open={isAddEventModalOpen}
             onOpenChange={setIsAddEventModalOpen}
           >
-            <DialogTrigger asChild>
+            <DialogTrigger>
               <Button size="sm" onClick={() => setIsAddEventModalOpen(true)}>
                 Add Event
               </Button>
@@ -272,6 +276,11 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                     {userEvents
                       .filter((event) => {
                         const eventStart = new Date(event.startAt);
+                        const eventStartTime = `${event.startAt.getHours()}:${
+                          event.startAt.getMinutes() === 30
+                            ? event.startAt.getMinutes()
+                            : event.startAt.getMinutes() + '0'
+                        }`;
                         const eventEnd = new Date(event.endAt);
                         const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
                         const formattedSelectedDate = `${selectedDate.getDate()}-${selectedDate.getMonth()}-${selectedDate.getFullYear()}`;
@@ -279,12 +288,12 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                         // Convert the time to the correct format
                         const eventHour = parseInt(value[1].split(':')[0]);
                         const eventMinute = parseInt(value[1].split(':')[1]);
-                        const eventTime = new Date(eventStart);
-                        eventTime.setHours(eventHour);
-                        eventTime.setMinutes(eventMinute);
+                        const plannerCellTime = `${eventHour}:${
+                          eventMinute === 30 ? eventMinute : eventMinute + '0'
+                        }`;
                         return (
-                          eventTime >= eventStart &&
-                          eventTime < eventEnd &&
+                          eventStartTime === plannerCellTime &&
+                          // eventTime < eventEnd &&
                           formattedEventDate === formattedSelectedDate
                         );
                       })

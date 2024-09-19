@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import jsPDF from 'jspdf';
@@ -6,6 +7,7 @@ import { addDays, format } from 'date-fns';
 import PDF from './PDF';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
+import { DateRange } from 'react-day-picker';
 
 function generateDateArray(dateRange: any) {
   const { from, to } = dateRange;
@@ -20,7 +22,7 @@ function generateDateArray(dateRange: any) {
   return dates;
 }
 
-const Planner = ({ currentDate = new Date(), user, events }) => {
+const Planner = ({ currentDate = new Date(), user, events }: any) => {
   const [dateRange, setDateRange] = useState({
     start: new Date(),
     end: new Date(),
@@ -33,12 +35,12 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
 
   const [range, setRange] = useState(initialRange);
   const [selectedDate, setSelectedDate] = useState(currentDate);
-  const componentRef = useRef();
+  const componentRef = useRef<HTMLDivElement | null>(null);
 
   const dates = generateDateArray(range);
 
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+    content: () => componentRef.current || null,
   });
 
   const filteredEvents = events.filter((event: any) => {
@@ -50,8 +52,6 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
         `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
     );
   });
-
-  console.log(filteredEvents);
 
   //   const handleGeneratePDF = () => {
   //     const doc = new jsPDF();
@@ -81,7 +81,7 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
         Print
       </Button>
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger>
           <Button size="sm">
             <CalendarDaysIcon className="mr-2 h-4 w-4" />
             {format(selectedDate, 'MMM d, yyyy')}
@@ -90,7 +90,9 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             mode="range"
-            onSelect={setRange}
+            onSelect={(selected: { from: Date; to: Date } | undefined) =>
+              setRange(selected || initialRange)
+            }
             selected={range}
             numberOfMonths={2}
           />
@@ -114,7 +116,7 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
 
 export default Planner;
 
-function CalendarDaysIcon(props) {
+function CalendarDaysIcon(props: any) {
   return (
     <svg
       {...props}

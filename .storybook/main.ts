@@ -23,22 +23,22 @@ const config: StorybookConfig = {
   //   reactDocgen: 'react-docgen',
   // },
   // env: () => ({}),
-  webpackFinal: async (config) => {
-    if (config.resolve) {
-      // config.resolve.fallback = [
-      //   { alias: 'crypto', name: 'crypto-browserify', onlyModule: true },
-      // ];
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        stream: false,
-        crypto: false,
-        fs: false,
-        http: false,
-        https: false,
-      };
-    }
+  // webpackFinal: async (config) => {
+  //   if (config.resolve) {
+  //     // config.resolve.alias = [
+  //     //   { alias: 'node:crypto', name: 'crypto-browserify', onlyModule: true },
+  //     // ];
+  //     config.resolve.fallback = {
+  //       ...config.resolve.fallback,
+  //       stream: false,
+  //       'node:crypto': false,
+  //       fs: false,
+  //       'node:http': false,
+  //       'node:https': false,
+  //     };
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
 };
 export default config;

@@ -1,8 +1,7 @@
 import React from 'react';
-import { redirect } from 'next/navigation';
-import { getUser } from '../../actions/user';
-import { getEvents } from '../../actions/events';
-import Planner from '../../../components/ui/Planner';
+import Planner from '@/components/ui/PlannerPDF';
+import { getUser } from '@/app/actions/user';
+import { getEvents } from '@/app/actions/events';
 
 async function getData() {
   const user = await getUser();
@@ -17,10 +16,9 @@ async function getData() {
   };
 }
 
-export default async function Page({ currentDate = new Date() }) {
+export default async function PrintLayout({ currentDate = new Date() }) {
   const { props } = await getData();
   const { events, user } = props;
-  console.log(user);
   if (!user.user) {
     redirect('/');
   }

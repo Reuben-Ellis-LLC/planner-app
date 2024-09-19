@@ -1,7 +1,3 @@
 'use server';
-import { getUser } from '@workos-inc/authkit-nextjs';
-
-export async function fetchUser() {
-  const { user } = await getUser();
-  return user;
-}
+import { getUser, getSignInUrl, signOut } from '@workos-inc/authkit-nextjs';
+export { getUser, getSignInUrl, signOut };

@@ -1,16 +1,15 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { getUser, getSignInUrl, signOut } from '@workos-inc/authkit-nextjs';
+import { getUser, getSignInUrl, signOut } from '@/app/actions/user';
 import { Input } from '@/components/ui/input';
 import { Button as ShadButton } from '@/components/ui/button';
 // import { Button, Flex, Heading, Text } from '@radix-ui/themes';
-// import { fetchUser } from '#app/actions/user';
 import { SignInButton } from '@/components/ui/signInButton';
 
-// async function getData() {
-//   const user = await fetchUser();
-//   return { user };
-// }
+async function getData() {
+  const user = await getUser();
+  return { user: user.user };
+}
 
 // export default async function HomePage() {
 //   const { user } = await getData();
@@ -46,8 +45,8 @@ import { SignInButton } from '@/components/ui/signInButton';
 
 export default async function HomePageLayout() {
   // const user = storybookUser;
-  const { user } = await getUser();
-  // const user = await getUser();
+  const { user } = await getData();
+  console.log(user);
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -81,7 +80,7 @@ export default async function HomePageLayout() {
           >
             About
           </NextLink>
-          {user ? (
+          {user && (
             <NextLink
               href="/events"
               className="text-sm font-medium hover:underline underline-offset-4"
@@ -89,7 +88,7 @@ export default async function HomePageLayout() {
             >
               Events
             </NextLink>
-          ) : null}
+          )}
           <SignInButton
             user={user}
             getSignInUrl={getSignInUrl}

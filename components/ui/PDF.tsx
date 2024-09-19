@@ -16,8 +16,16 @@ import {
 } from './table';
 import { BlankTable } from './BlankTable';
 
+function compare(a, b) {
+  if (a.endAt > b.endAt) return -1;
+  if (a.endAt < b.endAt) return 1;
+  return 0;
+}
+
 export default function PDF({ currentDate = new Date(), user, events, range }) {
   const [userEvents, setEvents] = useState(events);
+  userEvents.sort(compare);
+
   let data = [
     ['7:00', '7:00'],
     ['7:30', '7:30'],
@@ -70,6 +78,11 @@ export default function PDF({ currentDate = new Date(), user, events, range }) {
                     {userEvents
                       .filter((event) => {
                         const eventStart = new Date(event.startAt);
+                        const eventStartTime = `${event.startAt.getHours()}:${
+                          event.startAt.getMinutes() === 30
+                            ? event.startAt.getMinutes()
+                            : event.startAt.getMinutes() + '0'
+                        }`;
                         const eventEnd = new Date(event.endAt);
                         const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
                         const formattedSelectedDate = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
@@ -77,24 +90,46 @@ export default function PDF({ currentDate = new Date(), user, events, range }) {
                         // Convert the time to the correct format
                         const eventHour = parseInt(value[1].split(':')[0]);
                         const eventMinute = parseInt(value[1].split(':')[1]);
-                        const eventTime = new Date(eventStart);
-                        eventTime.setHours(eventHour);
-                        eventTime.setMinutes(eventMinute);
+                        const plannerCellTime = `${eventHour}:${
+                          eventMinute === 30 ? eventMinute : eventMinute + '0'
+                        }`;
                         return (
-                          eventTime >= eventStart &&
-                          eventTime < eventEnd &&
+                          eventStartTime === plannerCellTime &&
+                          // eventTime < eventEnd &&
                           formattedEventDate === formattedSelectedDate
                         );
                       })
-                      .map((event) => (
-                        <div
-                          key={event.id}
-                          className="bg-blue-500 text-white rounded-lg text-sm"
-                          style={{ backgroundColor: event.color }}
-                        >
-                          {event.title}
-                        </div>
-                      ))}
+                      .map((event) => {
+                        // const eventStartTime = `${event.startAt.getHours()}:${event.startAt.getMinutes()}0`;
+                        // // Convert the time to the correct format
+                        // const eventHour = parseInt(value[1].split(':')[0]);
+                        // const eventMinute = parseInt(value[1].split(':')[1]);
+                        // const plannerCellTime = `${eventHour}:${
+                        //   eventMinute.toString() === '00' ||
+                        //   eventMinute.toString() === '30'
+                        //     ? eventMinute
+                        //     : eventMinute + '0'
+                        // }`;
+
+                        // return eventStartTime === plannerCellTime ? (
+                        return (
+                          <div
+                            key={event.id}
+                            className="bg-blue-500 text-white rounded-lg text-xs"
+                            style={{ backgroundColor: event.color }}
+                          >
+                            {event.title}
+                          </div>
+                        );
+                        // ) : (
+                        //   <span
+                        //     className="text-2xl text-blue-500"
+                        //     style={{ color: event.color }}
+                        //   >
+                        //     |
+                        //   </span>
+                        // );
+                      })}
                   </div>
                 </TableCell>
               </TableRow>

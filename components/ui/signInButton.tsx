@@ -14,9 +14,10 @@ export async function SignInButton({
   const authorizationUrl = await getSignInUrl();
 
   if (user) {
+    const firstName = user?.firstName || null;
     return (
       <Flex gap="3">
-        {'Hello'}
+        {`Hello ${firstName}!`}
         <form
           action={async () => {
             'use server';
