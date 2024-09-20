@@ -15,15 +15,24 @@ import {
   TableCell,
 } from './table';
 import { BlankTable } from './BlankTable';
+import type { Event } from '@/app/actions/events';
 
-function compare(a, b) {
+function compare(a: Event, b: Event) {
   if (a.endAt > b.endAt) return -1;
   if (a.endAt < b.endAt) return 1;
   return 0;
 }
 
-export default function PDF({ currentDate = new Date(), user, events, range }) {
+export default function PDF({
+  currentDate = new Date(),
+  events,
+}: {
+  currentDate: Date;
+  events: Event;
+}) {
   const [userEvents, setEvents] = useState(events);
+  //@ts-ignore - userEvents is an array of events so sort is always available
+  //because it is a javascript array function
   userEvents.sort(compare);
 
   let data = [
@@ -76,7 +85,8 @@ export default function PDF({ currentDate = new Date(), user, events, range }) {
                 <TableCell>
                   <div className="grid grid-cols-2 gap-2">
                     {userEvents
-                      .filter((event) => {
+                      //@ts-ignore - filter is a javascript array function
+                      .filter((event: Event) => {
                         const eventStart = new Date(event.startAt);
                         const eventStartTime = `${event.startAt.getHours()}:${
                           event.startAt.getMinutes() === 30
@@ -99,7 +109,7 @@ export default function PDF({ currentDate = new Date(), user, events, range }) {
                           formattedEventDate === formattedSelectedDate
                         );
                       })
-                      .map((event) => {
+                      .map((event: Event) => {
                         // const eventStartTime = `${event.startAt.getHours()}:${event.startAt.getMinutes()}0`;
                         // // Convert the time to the correct format
                         // const eventHour = parseInt(value[1].split(':')[0]);

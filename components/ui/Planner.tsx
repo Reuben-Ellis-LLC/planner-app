@@ -8,6 +8,8 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
+import type { User } from '@/app/actions/user';
+import type { Event } from '@/app/actions/events';
 // import InputColor from 'react-input-color';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
@@ -42,10 +44,18 @@ import {
 import { createEvent } from '@/app/actions/events';
 // import { InputColorPicker } from './InputColorPicker';
 
-export default function Planner({ currentDate = new Date(), user, events }) {
-  const [userEvents, setEvents] = useState(events);
-  console.log('Initial user events');
-  console.log(userEvents);
+export default function Planner({
+  currentDate = new Date(),
+  user,
+  events,
+}: {
+  currentDate: Date;
+  user: User;
+  events: Event[];
+}) {
+  const [userEvents, setEvents] = useState<Event[]>(events);
+
+  console.log(user);
   let data = [
     ['7:00', '7:00'],
     ['7:30', '7:30'],
@@ -75,14 +85,16 @@ export default function Planner({ currentDate = new Date(), user, events }) {
     ['7:30', '19:30'],
     ['8:00', '20:00'],
   ];
-  const [newEvent, setNewEvent] = useState({
+  const [newEvent, setNewEvent] = useState<Event>({
+    id: '',
     title: '',
-    start: null,
-    end: null,
-    recurrence: 'daily',
+    startAt: new Date(),
+    endAt: new Date(),
+    recurrence: 'weekly',
     daysOfWeek: [],
     daysOfMonth: [],
-    userId: user?.id,
+    userId: user?.user.id,
+    user: { email: user?.user.email },
     color: '#5e72e4',
   });
   const [selectedDate, setSelectedDate] = useState(currentDate);
@@ -92,12 +104,12 @@ export default function Planner({ currentDate = new Date(), user, events }) {
     setEvents([...userEvents, newEvent]);
     setNewEvent({
       title: newEvent.title,
-      start: newEvent.start,
-      end: newEvent.end,
+      startAt: newEvent.startAt,
+      endAt: newEvent.endAt,
       recurrence: newEvent.recurrence,
       daysOfWeek: [],
       daysOfMonth: [],
-      userId: user?.id,
+      userId: user?.user.id,
       color: newEvent.color,
     });
     await createEvent(newEvent, user.user);
@@ -170,7 +182,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                   <Input
                     id="start"
                     type="datetime-local"
-                    value={newEvent.start?.toISOString().slice(0, -1)}
+                    value={newEvent.startAt?.toISOString().slice(0, -1)}
                     // value={new Date(
                     //   newEvent.start -
                     //     newEvent.start?.getTimezoneOffset() * 60000
@@ -180,7 +192,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        start: new Date(e.target.value),
+                        startAt: new Date(e.target.value),
                       })
                     }
                     className="col-span-3"
@@ -199,11 +211,11 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                   <Input
                     id="end"
                     type="datetime-local"
-                    value={newEvent.end?.toISOString().slice(0, -1)}
+                    value={newEvent.endAt?.toISOString().slice(0, -1)}
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        end: new Date(e.target.value),
+                        endAt: new Date(e.target.value),
                       })
                     }
                     className="col-span-3"
@@ -214,9 +226,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
                     Recurrence
                   </Label>
                   <Select
-                    id="recurrence"
                     value={newEvent.recurrence}
-                    className="col-span-3"
                     onValueChange={(value) =>
                       setNewEvent({ ...newEvent, recurrence: value })
                     }
@@ -317,7 +327,7 @@ export default function Planner({ currentDate = new Date(), user, events }) {
   );
 }
 
-function CalendarDaysIcon(props) {
+function CalendarDaysIcon(props: any) {
   return (
     <svg
       {...props}

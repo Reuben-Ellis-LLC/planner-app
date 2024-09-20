@@ -79,7 +79,7 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-export default function Layout({ children }) {
+export default function Layout({ children }: any) {
   return (
     <html lang="en">
       <body className={inter.variable}>{children}</body>

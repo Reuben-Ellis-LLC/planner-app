@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button as ShadButton } from '@/components/ui/button';
 // import { Button, Flex, Heading, Text } from '@radix-ui/themes';
 import { SignInButton } from '@/components/ui/signInButton';
+import Image from 'next/image';
 
 async function getData() {
   const user = await getUser();
@@ -100,7 +101,7 @@ export default async function HomePageLayout() {
         <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <img
+              <Image
                 src="/placeholder.svg"
                 width="550"
                 height="550"
@@ -144,7 +145,7 @@ export default async function HomePageLayout() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                  Busy Moms' Planner
+                  {"Busy Moms' Planner"}
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                   Simplify Your Schedule, Reclaim Your Time
@@ -158,7 +159,7 @@ export default async function HomePageLayout() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <img
+              <Image
                 src="/placeholder.svg"
                 width="550"
                 height="310"
@@ -191,8 +192,8 @@ export default async function HomePageLayout() {
                         Personalized Reminders
                       </h3>
                       <p className="text-muted-foreground">
-                        Get timely reminders for your scheduled events, so
-                        you\'re always on top of your busy life.
+                        {`Get timely reminders for your scheduled events, so
+                        you're always on top of your busy life.`}
                       </p>
                     </div>
                   </li>
@@ -279,7 +280,7 @@ export default async function HomePageLayout() {
             <div className="grid gap-10 sm:px-10 md:gap-16 md:grid-cols-2">
               <div className="space-y-4">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                  Busy Mom's Planner
+                  {"Busy Mom's Planner"}
                 </div>
                 <h2 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
                   Simplify Your Schedule, Reclaim Your Time
@@ -294,7 +295,7 @@ export default async function HomePageLayout() {
               </div>
               <div className="flex flex-col items-start space-y-4">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                  Busy Mom's Planner
+                  {"Busy Mom's Planner"}
                 </div>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed">
                   Our planner app is designed to help busy moms like you

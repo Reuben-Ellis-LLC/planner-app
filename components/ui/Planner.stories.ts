@@ -23,16 +23,16 @@ const meta = {
       {
         id: 'clxcmr2d700012usb6rm3d5us',
         title: 'Alex Gym',
-        startAt: '2024-06-12T17:00:00.000Z',
-        endAt: '2024-06-12T19:00:00.000Z',
+        startAt: new Date('2024-06-12T17:00:00.000Z'),
+        endAt: new Date('2024-06-12T19:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
       },
       {
         id: 'clxcmr2d700012usb6rm3d5ps',
         title: 'Ruby Gym',
-        startAt: '2024-06-18T20:00:00.000Z',
-        endAt: '2024-06-18T23:00:00.000Z',
+        startAt: new Date('2024-06-18T20:00:00.000Z'),
+        endAt: new Date('2024-06-18T23:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
@@ -40,24 +40,28 @@ const meta = {
       {
         id: 'clxcmr2d700012usb6rm3d5fs',
         title: 'Ruby Gym',
-        startAt: '2024-06-20T20:00:00.000Z',
-        endAt: '2024-06-20T23:00:00.000Z',
+        startAt: new Date('2024-06-20T20:00:00.000Z'),
+        endAt: new Date('2024-06-20T23:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
       },
     ],
     user: {
-      object: 'user',
-      id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-      email: 'ethriel3695@gmail.com',
-      emailVerified: true,
-      firstName: 'Reuben',
-      profilePictureUrl:
-        'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
-      lastName: 'Ellis',
-      createdAt: '2024-06-09T13:41:04.750Z',
-      updatedAt: '2024-06-09T13:41:04.750Z',
+      sessionId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
+      accessToken: 'access_01HZYKPB4JWFPAADBPGHVRK5TY',
+      user: {
+        object: 'user',
+        id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
+        email: 'ethriel3695@gmail.com',
+        emailVerified: true,
+        firstName: 'Reuben',
+        profilePictureUrl:
+          'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
+        lastName: 'Ellis',
+        createdAt: '2024-06-09T13:41:04.750Z',
+        updatedAt: '2024-06-09T13:41:04.750Z',
+      },
     },
   },
 } satisfies Meta<typeof Planner>;
@@ -89,7 +93,8 @@ export const AddEvent: Story = {
     currentDate: new Date('2024-06-08:07:00:00Z-0600'),
   },
   play: async (context) => {
-    await CalendarDateChange.play(context);
+    //@ts-ignore - play will always be a function
+    await CalendarDateChange?.play(context);
     const { canvasElement } = context;
     const canvas = within(canvasElement);
     const eventButton = await canvas.findByText('Add Event');

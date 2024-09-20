@@ -17,12 +17,13 @@ async function getData() {
   };
 }
 
-export default async function Page({ currentDate = new Date() }) {
+export default async function Page() {
+  const currentDate = new Date();
   const { props } = await getData();
   const { events, user } = props;
-  console.log(user);
   if (!user.user) {
     redirect('/');
   }
+  //@ts-ignore - user and events are different here coming from props
   return <Planner currentDate={currentDate} user={user} events={events} />;
 }

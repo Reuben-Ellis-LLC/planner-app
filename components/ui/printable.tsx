@@ -2,24 +2,23 @@ import React, { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import jsPDF from 'jspdf';
 import PageLayout from './Planner';
+import type { User } from '@/app/actions/user';
+import type { Event } from '@/app/actions/events';
 
-const PlannerPage = ({ date, userEvents, selectedDate }) => {
-  // Render your planner page based on the date and events
-  // Use the existing Table component and data logic
-  return (
-    <div>
-      <h2>Planner for {date.toDateString()}</h2>
-      {/* Render the table here based on the date */}
-    </div>
-  );
-};
-
-const Planner = ({ currentDate = new Date(), user, events }) => {
+const Planner = ({
+  currentDate = new Date(),
+  user,
+  events,
+}: {
+  currentDate: Date;
+  user: User;
+  events: Event[];
+}) => {
   const [dateRange, setDateRange] = useState({
     start: new Date(),
     end: new Date(),
   });
-  const componentRef = useRef();
+  const componentRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -35,6 +34,7 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
       doc.addPage();
       doc.text(`Planner for ${currentDate.toDateString()}`, 10, 10);
       // Add your planner content for each day here
+      //@ts-ignore - componentRef can never really be null here
       doc.html(componentRef.current, {
         async callback(doc) {
           await doc.save('document');
@@ -48,7 +48,7 @@ const Planner = ({ currentDate = new Date(), user, events }) => {
 
   return (
     <div>
-      <DateRangePicker setDateRange={setDateRange} />
+      {/* <DateRangePicker setDateRange={setDateRange} /> */}
       <button onClick={handlePrint}>Print</button>
       <button onClick={handleGeneratePDF}>Generate PDF</button>
       <div ref={componentRef}>
