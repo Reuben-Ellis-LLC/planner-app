@@ -33,6 +33,8 @@ export async function getEvents() {
 }
 
 export async function createEvent(data: any, user: any) {
+  console.log(data);
+  console.log(user);
   const event = await prisma.event.create({
     data: {
       title: data.title,
