@@ -37,8 +37,8 @@ export async function createEvent(data: any, user: any) {
     data: {
       title: data.title,
       userId: user.id,
-      startAt: data.start,
-      endAt: data.end,
+      startAt: data.startAt,
+      endAt: data.endAt,
       // user: user,
     },
   });
