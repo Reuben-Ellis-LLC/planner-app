@@ -112,6 +112,8 @@ export default function Planner({
       userId: user?.user.id,
       color: newEvent.color,
     });
+    console.log(newEvent);
+    console.log(user.user);
     await createEvent(newEvent, user.user);
     setIsAddEventModalOpen(false);
   };
