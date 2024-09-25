@@ -66,9 +66,9 @@ export default function PDF({
   ];
   return (
     //   <div className="flex flex-col w-full h-dvh overflow-hidden"></div>
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 planner-page">
       <div className="grid grid-cols-1">
-        <Table>
+        <Table className="text-xs">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Time</TableHead>
@@ -79,11 +79,11 @@ export default function PDF({
           <TableBody>
             {data.map((value) => (
               <TableRow key={value[1]}>
-                <TableCell className="text-gray-500 dark:text-gray-400 font-medium">
+                <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs">
                   {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
                 </TableCell>
                 <TableCell>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1">
                     {userEvents
                       //@ts-ignore - filter is a javascript array function
                       .filter((event: Event) => {
@@ -151,6 +151,27 @@ export default function PDF({
         <BlankTable sectionName={'Kids'} />
         <BlankTable sectionName={'Notes'} />
       </div>
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: A4;
+            margin: 0;
+          }
+          body {
+            margin: 0;
+          }
+          .planner-page {
+            page-break-after: always;
+            height: 100vh;
+            box-sizing: border-box;
+            padding: 2cm;
+            border: none !important;
+          }
+          .planner-page:last-child {
+            page-break-after: auto;
+          }
+        }
+      `}</style>
     </div>
   );
 }

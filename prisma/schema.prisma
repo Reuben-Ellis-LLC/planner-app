@@ -31,7 +31,7 @@ model Event {
 
   startAt DateTime @default(now())
   endAt   DateTime @default(now())
-
+  color  String?
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
 }

@@ -12,7 +12,7 @@ async function seed() {
 
   const user = await prisma.user.create({
     data: {
-      id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
+      id: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
       email,
       firstName: 'Reuben',
       lastName: 'Ellis',
@@ -23,28 +23,101 @@ async function seed() {
 
   await prisma.event.create({
     data: {
-      title: 'Alex Gym',
+      title: 'Enzo Gym 10:00-10:45',
       userId: user.id,
-      startAt: new Date('2024-06-12T11:00:00' + gmtOffset),
-      endAt: new Date('2024-06-12T13:00:00' + gmtOffset),
+      startAt: new Date('2024-09-23T10:00:00' + gmtOffset),
+      endAt: new Date('2024-09-23T10:45:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Ruby Voice 1:30-2:00',
+      userId: user.id,
+      startAt: new Date('2024-09-23T13:30:00' + gmtOffset),
+      endAt: new Date('2024-09-23T14:00:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Alex Voice 2:00-2:30',
+      userId: user.id,
+      startAt: new Date('2024-09-23T14:00:00' + gmtOffset),
+      endAt: new Date('2024-09-23T14:30:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Sophia Voice 2:30-3:00',
+      userId: user.id,
+      startAt: new Date('2024-09-23T14:30:00' + gmtOffset),
+      endAt: new Date('2024-09-23T15:00:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Reuben Fiddle 2:00-2:30',
+      userId: user.id,
+      startAt: new Date('2024-09-23T14:00:00' + gmtOffset),
+      endAt: new Date('2024-09-23T14:30:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Alex Gym 4:00-6:00',
+      userId: user.id,
+      startAt: new Date('2024-09-23T16:00:00' + gmtOffset),
+      endAt: new Date('2024-09-23T18:00:00' + gmtOffset),
     },
   });
 
   await prisma.event.create({
     data: {
-      title: 'Ruby Gym',
+      title: 'Ruby/Sophia Gym 4:00-7:00',
       userId: user.id,
-      startAt: new Date('2024-06-18T14:00:00' + gmtOffset),
-      endAt: new Date('2024-06-18T17:00:00' + gmtOffset),
+      startAt: new Date('2024-09-24T16:00:00' + gmtOffset),
+      endAt: new Date('2024-09-24T19:00:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Alex Gym 6:00-8:00',
+      userId: user.id,
+      startAt: new Date('2024-09-24T18:00:00' + gmtOffset),
+      endAt: new Date('2024-09-24T20:00:00' + gmtOffset),
     },
   });
 
   await prisma.event.create({
     data: {
-      title: 'Ruby Gym',
+      title: 'Ifamily 10:00-4:30',
       userId: user.id,
-      startAt: new Date('2024-06-20T14:00:00' + gmtOffset),
-      endAt: new Date('2024-06-20T17:00:00' + gmtOffset),
+      startAt: new Date('2024-09-25T10:00:00' + gmtOffset),
+      endAt: new Date('2024-09-25T16:30:00' + gmtOffset),
+    },
+  });
+
+  await prisma.event.create({
+    data: {
+      title: 'Jess Voice 4:00-5:00',
+      userId: user.id,
+      startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
+      endAt: new Date('2024-09-26T17:00:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Alex Gym 4:00-6:00',
+      userId: user.id,
+      startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
+      endAt: new Date('2024-09-26T18:00:00' + gmtOffset),
+    },
+  });
+  await prisma.event.create({
+    data: {
+      title: 'Ruby Gym 4:00-7:00',
+      userId: user.id,
+      startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
+      endAt: new Date('2024-09-26T19:00:00' + gmtOffset),
     },
   });
 

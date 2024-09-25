@@ -270,7 +270,7 @@ export default function Planner({
         </div>
       </header>
       <div className="flex-1">
-        <Table>
+        <Table className="text-xs">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Time</TableHead>
@@ -280,11 +280,11 @@ export default function Planner({
           <TableBody>
             {data.map((value) => (
               <TableRow key={value[1]}>
-                <TableCell className="text-gray-500 dark:text-gray-400 font-medium">
+                <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs">
                   {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
                 </TableCell>
                 <TableCell>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1">
                     {userEvents
                       .filter((event) => {
                         const eventStart = new Date(event.startAt);
@@ -312,7 +312,7 @@ export default function Planner({
                       .map((event) => (
                         <div
                           key={event.id}
-                          className="bg-blue-500 text-white rounded-lg p-2 text-sm"
+                          className="bg-blue-500 text-white rounded-lg p-1 text-xs"
                           style={{ backgroundColor: event.color }}
                         >
                           {event.title}
