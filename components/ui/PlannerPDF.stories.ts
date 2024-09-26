@@ -41,22 +41,6 @@ const meta = {
         color: 'rgba(206,208,219,1)',
       },
     ],
-    user: {
-      sessionId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-      accessToken: 'access_01',
-      user: {
-        object: 'user',
-        id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-        email: 'ethriel3695@gmail.com',
-        emailVerified: true,
-        firstName: 'Reuben',
-        profilePictureUrl:
-          'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
-        lastName: 'Ellis',
-        createdAt: '2024-06-09T13:41:04.750Z',
-        updatedAt: '2024-06-09T13:41:04.750Z',
-      },
-    },
   },
 } satisfies Meta<typeof PlannerPDF>;
 
