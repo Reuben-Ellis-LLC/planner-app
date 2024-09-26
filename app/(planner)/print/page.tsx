@@ -26,5 +26,5 @@ export default async function PrintLayout() {
     redirect('/');
   }
   //@ts-ignore - user and events are different here coming from props
-  return <Planner currentDate={currentDate} user={user} events={events} />;
+  return <Planner currentDate={currentDate} events={events} />;
 }

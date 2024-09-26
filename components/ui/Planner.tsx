@@ -10,7 +10,7 @@ import NextLink from 'next/link';
 import { format } from 'date-fns';
 import type { User } from '@/app/actions/user';
 import type { Event } from '@/app/actions/events';
-// import InputColor from 'react-input-color';
+import { CirclePicker } from 'react-color';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
@@ -42,7 +42,6 @@ import {
   TableCell,
 } from './table';
 import { createEvent } from '@/app/actions/events';
-// import { InputColorPicker } from './InputColorPicker';
 
 export default function Planner({
   currentDate = new Date(),
@@ -55,7 +54,6 @@ export default function Planner({
 }) {
   const [userEvents, setEvents] = useState<Event[]>(events);
 
-  console.log(user);
   let data = [
     ['7:00', '7:00'],
     ['7:30', '7:30'],
@@ -85,21 +83,28 @@ export default function Planner({
     ['7:30', '19:30'],
     ['8:00', '20:00'],
   ];
+  const tzoffset = new Date().getTimezoneOffset() * 60000;
   const [newEvent, setNewEvent] = useState<Event>({
     id: '',
     title: '',
-    startAt: new Date(),
-    endAt: new Date(),
+    startAt: new Date(Date.now() - tzoffset),
+    endAt: new Date(Date.now() - tzoffset),
     recurrence: 'weekly',
     daysOfWeek: [],
     daysOfMonth: [],
     userId: user?.user.id,
     user: { email: user?.user.email },
-    color: '#5e72e4',
+    color: '#2196f3',
   });
+
+  newEvent.startAt.setSeconds(0);
+  newEvent.startAt.setMilliseconds(0);
+  newEvent.endAt.setSeconds(0);
+  newEvent.endAt.setMilliseconds(0);
+
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
-  const [color, setColor] = React.useState<{ rgba: string }>({ rgba: '' });
+
   const handleAddEvent = async () => {
     setEvents([...userEvents, newEvent]);
     setNewEvent({
@@ -112,14 +117,13 @@ export default function Planner({
       userId: user?.user.id,
       color: newEvent.color,
     });
-    console.log(newEvent);
-    console.log(user.user);
     await createEvent(newEvent, user.user);
     setIsAddEventModalOpen(false);
   };
-  const handleDeleteEvent = (id: string) => {
-    setEvents(events.filter((event) => event.id !== id));
-  };
+  // TODO: Add delete event functionality
+  // const handleDeleteEvent = (id: string) => {
+  //   setEvents(events.filter((event) => event.id !== id));
+  // };
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
   };
@@ -185,12 +189,6 @@ export default function Planner({
                     id="start"
                     type="datetime-local"
                     value={newEvent.startAt?.toISOString().slice(0, -1)}
-                    // value={new Date(
-                    //   newEvent.start -
-                    //     newEvent.start?.getTimezoneOffset() * 60000
-                    // )
-                    //   .toISOString()
-                    //   .slice(0, -1)}
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
@@ -247,13 +245,21 @@ export default function Planner({
                   <Label htmlFor="color" className="text-right">
                     Color
                   </Label>
-                  {/* <InputColor
-                    initialValue="#5e72e4"
-                    onChange={(value) =>
-                      setNewEvent({ ...newEvent, color: value.rgba })
+                  <CirclePicker
+                    colors={[
+                      '#f44336',
+                      '#9c27b0',
+                      '#2196f3',
+                      '#4caf50',
+                      '#ffeb3b',
+                      '#ffc107',
+                      '#ff9800',
+                      '#795548',
+                    ]}
+                    onChangeComplete={(value: any) =>
+                      setNewEvent({ ...newEvent, color: value.hex })
                     }
-                    placement="right"
-                  /> */}
+                  />
                 </div>
               </div>
               <DialogFooter>

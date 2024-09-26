@@ -24,16 +24,16 @@ function compare(a: Event, b: Event) {
 }
 
 export default function PDF({
-  currentDate = new Date(),
+  date = new Date(),
   events,
 }: {
-  currentDate: Date;
+  date: Date;
   events: Event;
 }) {
   const [userEvents, setEvents] = useState(events);
   //@ts-ignore - userEvents is an array of events so sort is always available
   //because it is a javascript array function
-  userEvents.sort(compare);
+  // userEvents.sort(compare);
 
   let data = [
     ['7:00', '7:00'],
@@ -73,21 +73,21 @@ export default function PDF({
             <TableRow>
               <TableHead className="w-[100px]">Time</TableHead>
               <TableHead>Events</TableHead>
-              <TableHead>{currentDate.toLocaleDateString()}</TableHead>
+              <TableHead>{date.toLocaleDateString()}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((value) => (
               <TableRow key={value[1]}>
-                <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+                <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs w-1/3">
                   {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
                 </TableCell>
-                <TableCell>
-                  <div className="grid grid-cols-1">
+                <TableCell className="p-0 w-2/3">
+                  <div>
                     {userEvents
                       //@ts-ignore - filter is a javascript array function
                       .filter((event: Event) => {
-                        const eventStart = new Date(event.startAt);
+                        const eventStart = event.startAt;
                         const eventStartTime = `${event.startAt.getHours()}:${
                           event.startAt.getMinutes() === 30
                             ? event.startAt.getMinutes()
@@ -95,7 +95,7 @@ export default function PDF({
                         }`;
                         const eventEnd = new Date(event.endAt);
                         const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
-                        const formattedSelectedDate = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
+                        const formattedSelectedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
                         // Convert the time to the correct format
                         const eventHour = parseInt(value[1].split(':')[0]);
@@ -110,18 +110,6 @@ export default function PDF({
                         );
                       })
                       .map((event: Event) => {
-                        // const eventStartTime = `${event.startAt.getHours()}:${event.startAt.getMinutes()}0`;
-                        // // Convert the time to the correct format
-                        // const eventHour = parseInt(value[1].split(':')[0]);
-                        // const eventMinute = parseInt(value[1].split(':')[1]);
-                        // const plannerCellTime = `${eventHour}:${
-                        //   eventMinute.toString() === '00' ||
-                        //   eventMinute.toString() === '30'
-                        //     ? eventMinute
-                        //     : eventMinute + '0'
-                        // }`;
-
-                        // return eventStartTime === plannerCellTime ? (
                         return (
                           <div
                             key={event.id}
@@ -131,14 +119,6 @@ export default function PDF({
                             {event.title}
                           </div>
                         );
-                        // ) : (
-                        //   <span
-                        //     className="text-2xl text-blue-500"
-                        //     style={{ color: event.color }}
-                        //   >
-                        //     |
-                        //   </span>
-                        // );
                       })}
                   </div>
                 </TableCell>

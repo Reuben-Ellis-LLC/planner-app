@@ -1,15 +1,12 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
-// import jsPDF from 'jspdf';
 import { Calendar } from './calendar';
 import { addDays, format } from 'date-fns';
 import PDF from './PDF';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
-import type { User } from '@/app/actions/user';
 import type { Event } from '@/app/actions/events';
-// import { DateRange } from 'react-day-picker';
 
 function generateDateArray(dateRange: { from: Date; to: Date }) {
   const { from, to } = dateRange;
@@ -20,105 +17,87 @@ function generateDateArray(dateRange: { from: Date; to: Date }) {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-
   return dates;
+}
+
+function filterEvents(events: Event[], dates: Date[]) {
+  return events.filter((event: Event) => {
+    const eventStart = event.startAt;
+    return dates.some((date) => {
+      return (
+        `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}` ===
+        `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+      );
+    });
+  });
 }
 
 const Planner = ({
   currentDate = new Date(),
-  user,
   events,
 }: {
   currentDate: Date;
-  user: User;
   events: Event[];
 }) => {
-  const [dateRange, setDateRange] = useState({
-    start: new Date(),
-    end: new Date(),
-  });
-
   const initialRange = {
     from: new Date(),
     to: addDays(new Date(), 4),
   };
 
-  const [range, setRange] = useState(initialRange);
+  const [selected, setSelected] = useState<
+    { from: Date; to: Date } | undefined
+  >();
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const componentRef = useRef<HTMLDivElement | null>(null);
+  const [dates, setDates] = useState(
+    generateDateArray(selected || initialRange)
+  );
+  const [updatedEvents, setEvents] = useState(filterEvents(events, dates));
 
-  const dates = generateDateArray(range);
+  const handleSetRange = (selected: { from: Date; to: Date } | undefined) => {
+    setSelected(selected);
+    setDates(generateDateArray(selected || initialRange));
+    setEvents(
+      filterEvents(events, generateDateArray(selected || initialRange))
+    );
+    setSelectedDate(selected?.from || currentDate);
+  };
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current || null,
   });
 
-  const filteredEvents: Event[] = events.filter((event: Event) => {
-    const eventStart = new Date(event.startAt);
-    return dates.some(
-      (date) =>
-        `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}` ===
-        `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-    );
-  });
-
-  //   const handleGeneratePDF = () => {
-  //     const doc = new jsPDF();
-  //     const { start, end } = dateRange;
-  //     let currentDate = new Date(start);
-
-  //     while (currentDate <= end) {
-  //       doc.addPage();
-  //       doc.text(`Planner for ${currentDate.toDateString()}`, 10, 10);
-  //       // Add your planner content for each day here
-  //       doc.html(componentRef.current, {
-  //         async callback(doc) {
-  //           console.log(componentRef.current);
-  //           await doc.save('planner.pdf');
-  //         },
-  //       });
-  //       currentDate.setDate(currentDate.getDate() + 1);
-  //     }
-
-  //     // doc.save('planner.pdf');
-  //   };
-
   return (
     <div>
-      {/* <DateRangePicker setDateRange={setDateRange} /> */}
       <Button size="sm" onClick={handlePrint}>
         Print
       </Button>
       <Popover>
         <PopoverTrigger>
-          <Button size="sm">
-            <CalendarDaysIcon className="mr-2 h-4 w-4" />
-            {format(selectedDate, 'MMM d, yyyy')}
-          </Button>
+          {/* <Button size="sm"> */}
+          <CalendarDaysIcon className="mr-2 h-4 w-4" />
+          {format(selectedDate, 'MMM d, yyyy')}
+          {/* </Button> */}
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             mode="range"
             //@ts-ignore - onSelect is a prop of Calendar
             onSelect={(selected: { from: Date; to: Date } | undefined) =>
-              setRange(selected || initialRange)
+              handleSetRange(selected)
             }
-            selected={range}
+            selected={selected}
             numberOfMonths={2}
           />
         </PopoverContent>
       </Popover>
-      {/* <button onClick={handleGeneratePDF}>Generate PDF</button> */}
-      <div ref={componentRef}>
-        {/* <DateStepper dateRange={dateRange} user={user} events={events} /> */}
+      <div>
         {dates.map((date, index) => (
           <PDF
             key={index}
-            user={user}
             //@ts-ignore - filteredEvents is a prop of PDF
-            events={filteredEvents}
-            currentDate={date}
-            range={range}
+            events={updatedEvents}
+            date={date}
           />
         ))}
       </div>
