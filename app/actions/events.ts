@@ -1,6 +1,6 @@
 'use server';
-import { getUser } from '#app/actions/user';
-import prisma from '#lib/prisma';
+import { getUser } from '#app/actions/user.mock';
+import prisma from '#lib/prisma.mock';
 
 export type Event = {
   id?: string;
