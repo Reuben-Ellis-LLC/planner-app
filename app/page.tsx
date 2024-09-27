@@ -1,10 +1,10 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { getUser, getSignInUrl, signOut } from '@/app/actions/user';
-import { Input } from '@/components/ui/input';
-import { Button as ShadButton } from '@/components/ui/button';
+import { getUser, getSignInUrl, signOut } from '#app/actions/user.mock';
+import { Input } from '#components/ui/input';
+import { Button as ShadButton } from '#components/ui/button';
 // import { Button, Flex, Heading, Text } from '@radix-ui/themes';
-import { SignInButton } from '@/components/ui/signInButton';
+import { SignInButton } from '#components/ui/signInButton';
 import Image from 'next/image';
 
 async function getData() {
