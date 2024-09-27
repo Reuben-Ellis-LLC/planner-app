@@ -15,7 +15,7 @@ import {
   TableCell,
 } from './table';
 import { BlankTable } from './BlankTable';
-import type { Event } from '@/app/actions/events';
+import type { Event } from '#app/actions/events';
 
 function compare(a: Event, b: Event) {
   if (a.endAt > b.endAt) return -1;

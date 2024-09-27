@@ -1,6 +1,6 @@
 'use server';
-import { getUser } from './user';
-import prisma from '../../lib/prisma';
+import { getUser } from '#app/actions/user';
+import prisma from '#lib/prisma';
 
 export type Event = {
   id?: string;

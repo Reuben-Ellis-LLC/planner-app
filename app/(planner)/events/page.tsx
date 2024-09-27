@@ -1,7 +1,7 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { getUser } from '../../actions/user';
-import { getEvents } from '../../actions/events';
+import { getUser } from '#app/actions/user';
+import { getEvents } from '#app/actions/events';
 import Planner from '../../../components/ui/Planner';
 
 async function getData() {

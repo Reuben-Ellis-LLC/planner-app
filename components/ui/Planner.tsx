@@ -8,8 +8,8 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
-import type { User } from '@/app/actions/user';
-import type { Event } from '@/app/actions/events';
+import type { User } from '#app/actions/user';
+import type { Event } from '#app/actions/events';
 import { CirclePicker } from 'react-color';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
@@ -41,7 +41,7 @@ import {
   TableBody,
   TableCell,
 } from './table';
-import { createEvent } from '@/app/actions/events';
+import { createEvent } from '#app/actions/events';
 
 export default function Planner({
   currentDate = new Date(),
