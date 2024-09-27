@@ -4,7 +4,7 @@ import {
   getSignUpUrl,
   getUser,
   signOut,
-} from '@workos-inc/authkit-nextjs';
+} from '#app/actions/user';
 
 export default async function HomePage() {
   // Retrieves the user from the session or returns `null` if no user is signed in

@@ -6,7 +6,7 @@ import { addDays, format } from 'date-fns';
 import PDF from './PDF';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
-import type { Event } from '@/app/actions/events';
+import type { Event } from '#app/actions/events';
 
 function generateDateArray(dateRange: { from: Date; to: Date }) {
   const { from, to } = dateRange;

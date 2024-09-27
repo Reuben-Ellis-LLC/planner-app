@@ -19,26 +19,5 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../public'],
-  // typescript: {
-  //   reactDocgen: 'react-docgen',
-  // },
-  // env: () => ({}),
-  // webpackFinal: async (config) => {
-  //   if (config.resolve) {
-  //     // config.resolve.alias = [
-  //     //   { alias: 'node:crypto', name: 'crypto-browserify', onlyModule: true },
-  //     // ];
-  //     config.resolve.fallback = {
-  //       ...config.resolve.fallback,
-  //       stream: false,
-  //       'node:crypto': false,
-  //       fs: false,
-  //       'node:http': false,
-  //       'node:https': false,
-  //     };
-  //   }
-
-  //   return config;
-  // },
 };
 export default config;

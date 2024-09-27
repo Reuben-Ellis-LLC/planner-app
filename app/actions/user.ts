@@ -1,5 +1,10 @@
 'use server';
-import { getUser, getSignInUrl, signOut } from '@workos-inc/authkit-nextjs';
+import {
+  getUser,
+  getSignInUrl,
+  getSignUpUrl,
+  signOut,
+} from '@workos-inc/authkit-nextjs';
 
 export type User = {
   sessionId: string;
@@ -16,4 +21,4 @@ export type User = {
   };
   accessToken: string;
 };
-export { getUser, getSignInUrl, signOut };
+export { getUser, getSignInUrl, getSignUpUrl, signOut };

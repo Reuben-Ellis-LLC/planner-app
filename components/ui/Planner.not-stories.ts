@@ -1,12 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  within,
-  userEvent,
-  expect,
-  screen,
-  fn,
-  queryByAttribute,
-} from '@storybook/test';
+import { within, userEvent, expect, screen } from '@storybook/test';
 
 import Planner from './Planner';
 
@@ -18,21 +11,21 @@ const meta = {
     layout: 'fullscreen',
   },
   args: {
-    currentDate: new Date('2024-06-18T18:00:00.000Z'),
+    currentDate: new Date('2024-09-27T18:00:00.000Z'),
     events: [
       {
         id: 'clxcmr2d700012usb6rm3d5us',
         title: 'Alex Gym',
-        startAt: new Date('2024-06-12T17:00:00.000Z'),
-        endAt: new Date('2024-06-12T19:00:00.000Z'),
+        startAt: new Date('2024-09-27T17:00:00.000Z'),
+        endAt: new Date('2024-09-27T19:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
       },
       {
         id: 'clxcmr2d700012usb6rm3d5ps',
         title: 'Ruby Gym',
-        startAt: new Date('2024-06-18T20:00:00.000Z'),
-        endAt: new Date('2024-06-18T23:00:00.000Z'),
+        startAt: new Date('2024-09-27T20:00:00.000Z'),
+        endAt: new Date('2024-09-27T23:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
@@ -40,8 +33,8 @@ const meta = {
       {
         id: 'clxcmr2d700012usb6rm3d5fs',
         title: 'Ruby Gym',
-        startAt: new Date('2024-06-20T20:00:00.000Z'),
-        endAt: new Date('2024-06-20T23:00:00.000Z'),
+        startAt: new Date('2024-09-27T20:00:00.000Z'),
+        endAt: new Date('2024-09-27T23:00:00.000Z'),
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
@@ -52,7 +45,7 @@ const meta = {
       accessToken: 'access_01HZYKPB4JWFPAADBPGHVRK5TY',
       user: {
         object: 'user',
-        id: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
+        id: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         email: 'ethriel3695@gmail.com',
         emailVerified: true,
         firstName: 'Reuben',
