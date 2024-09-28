@@ -105,6 +105,7 @@ export default async function HomePageLayout() {
                 height="550"
                 alt="Hero"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                priority
               />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">

@@ -35,6 +35,7 @@ const preview: Preview = {
       accessToken: 'access',
     });
     getEvents.mockResolvedValue([
+      // @ts-ignore
       {
         id: 'clxcmr2d700012usb6rm3d5us',
         title: 'Alex Gym',
@@ -43,6 +44,7 @@ const preview: Preview = {
         userId: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         user: { email: 'ethriel3695@gmail.com' },
       },
+      // @ts-ignore
       {
         id: 'clxcmr2d700012usb6rm3d5ps',
         title: 'Ruby Gym',
@@ -51,6 +53,7 @@ const preview: Preview = {
         userId: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         user: { email: 'ethriel3695@gmail.com' },
       },
+      // @ts-ignore
       {
         id: 'clxcmr2d700012usb6rm3d5fs',
         title: 'Ruby Gym',

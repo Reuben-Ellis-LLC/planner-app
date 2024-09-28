@@ -2,13 +2,13 @@ import Link from 'next/link';
 import {
   getSignInUrl,
   getSignUpUrl,
-  getUser,
+  withAuth,
   signOut,
 } from '#app/actions/user';
 
 export default async function HomePage() {
   // Retrieves the user from the session or returns `null` if no user is signed in
-  const { user } = await getUser();
+  const { user } = await withAuth();
 
   // Get the URL to redirect the user to AuthKit to sign in
   const signInUrl = await getSignInUrl();
