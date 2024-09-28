@@ -28,8 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "prisma/generate-dmmf.js",
-    "prisma/seed.js"
+    "prisma/generate-dmmf.ts",
+    "prisma/seed.ts"
   ],
   "exclude": ["node_modules"]
 }

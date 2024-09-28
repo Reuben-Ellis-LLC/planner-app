@@ -11,10 +11,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "postinstall": "prisma generate && npm run generate-dmmf",
-    "generate-dmmf": "tsx prisma/generate-dmmf.js"
+    "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.js && tsx ./prisma/generate-dmmf.js"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
   },
   "imports": {
     "#lib/prisma": {
