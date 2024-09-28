@@ -1,8 +1,8 @@
 import type { Preview } from '@storybook/react';
 import * as MockDate from 'mockdate';
 import '@radix-ui/themes/styles.css';
-import { withAuth } from '../app/actions/user.mock';
-import { getEvents } from '../app/actions/events.mock';
+import { withAuth } from '#app/actions/user.mock';
+import { getEvents } from '#app/actions/events.mock';
 import '../app/globals.css';
 
 const preview: Preview = {
