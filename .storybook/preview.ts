@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import * as MockDate from 'mockdate';
 import '@radix-ui/themes/styles.css';
 import { withAuth } from '../app/actions/user.mock';
 import { getEvents } from '../app/actions/events.mock';
@@ -18,6 +19,8 @@ const preview: Preview = {
   },
   // 👇 Set the return value for the getUser function
   async beforeEach() {
+    // Fixed dates for consistent screenshots
+    MockDate.set('2024-09-28T12:24:02Z');
     withAuth.mockResolvedValue({
       user: {
         object: 'user',
