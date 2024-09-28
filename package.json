@@ -10,7 +10,7 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && npm run generate-dmmf",
     "generate-dmmf": "tsx prisma/generate-dmmf.js"
   },
   "prisma": {
