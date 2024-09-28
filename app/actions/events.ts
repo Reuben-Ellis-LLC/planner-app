@@ -1,22 +1,9 @@
 'use server';
-import { getUser } from '#app/actions/user.mock';
-import prisma from '#lib/prisma.mock';
-
-export type Event = {
-  id?: string;
-  title: string;
-  startAt: Date;
-  endAt: Date;
-  userId: string;
-  user?: { email: string };
-  recurrence?: string;
-  daysOfWeek?: [];
-  daysOfMonth?: [];
-  color?: string;
-};
+import { withAuth } from '#app/actions/user';
+import prisma from '#lib/prisma';
 
 export async function getEvents() {
-  const user = await getUser();
+  const user = await withAuth();
   const events = await prisma.event.findMany({
     where: { userId: user.user?.id },
     include: {

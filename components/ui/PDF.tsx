@@ -15,7 +15,19 @@ import {
   TableCell,
 } from './table';
 import { BlankTable } from './BlankTable';
-import type { Event } from '#app/actions/events';
+
+type Event = {
+  id?: string;
+  title: string;
+  startAt: Date;
+  endAt: Date;
+  userId: string;
+  user?: { email: string };
+  recurrence?: string;
+  daysOfWeek?: [];
+  daysOfMonth?: [];
+  color?: string;
+};
 
 // function compare(a: Event, b: Event) {
 //   if (a.endAt > b.endAt) return -1;

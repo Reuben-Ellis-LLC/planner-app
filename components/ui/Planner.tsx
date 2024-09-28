@@ -8,8 +8,6 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
-import type { User } from '#app/actions/user';
-import type { Event } from '#app/actions/events';
 import { CirclePicker } from 'react-color';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
@@ -42,6 +40,35 @@ import {
   TableCell,
 } from './table';
 import { createEvent } from '#app/actions/events';
+
+type User = {
+  sessionId: string;
+  user: {
+    object: string;
+    id: string;
+    email: string;
+    emailVerified: boolean;
+    firstName: string;
+    profilePictureUrl: string;
+    lastName: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  accessToken: string;
+};
+
+type Event = {
+  id?: string;
+  title: string;
+  startAt: Date;
+  endAt: Date;
+  userId: string;
+  user?: { email: string };
+  recurrence?: string;
+  daysOfWeek?: [];
+  daysOfMonth?: [];
+  color?: string;
+};
 
 export default function Planner({
   currentDate = new Date(),

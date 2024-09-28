@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { getUser, getSignInUrl, signOut } from '#app/actions/user';
+import { withAuth, getSignInUrl, signOut } from '#app/actions/user';
 import { Input } from '#components/ui/input';
 import { Button as ShadButton } from '#components/ui/button';
 // import { Button, Flex, Heading, Text } from '@radix-ui/themes';
@@ -8,7 +8,7 @@ import { SignInButton } from '#components/ui/signInButton';
 import Image from 'next/image';
 
 async function getData() {
-  const user = await getUser();
+  const user = await withAuth();
   return { user: user.user };
 }
 
@@ -45,7 +45,6 @@ async function getData() {
 // }
 
 export default async function HomePageLayout() {
-  // const user = storybookUser;
   const { user } = await getData();
   return (
     <div className="flex flex-col min-h-[100dvh]">

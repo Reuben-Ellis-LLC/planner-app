@@ -24,12 +24,12 @@ const createPrismaClientMock = (
   return db;
 };
 
-export default createPrismaClientMock();
+export let db = createPrismaClientMock();
 
 export function initializeDB(
   data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {}
 ) {
-  const db = createPrismaClientMock(data);
+  db = createPrismaClientMock(data);
 
   // @ts-ignore This Error class is not loaded properly in the browser, mocking it for now like a regular Error
   Prisma.PrismaClientKnownRequestError = class PrismaClientKnownRequestError extends (

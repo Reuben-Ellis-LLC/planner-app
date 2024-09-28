@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 // import { within, userEvent, expect, screen } from '@storybook/test';
 
 import PrintLayout from './page';
+import { withAuth } from '#app/actions/user.mock';
 
 const meta = {
   title: 'Route/Print',
@@ -20,34 +21,27 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     currentDate: new Date('2024-09-27:07:00:00Z-0600'),
-    events: [
-      {
-        id: 'clxcmr2d700012usb6rm3d5us',
-        title: 'Alex Gym',
-        startAt: new Date('2024-09-27T17:00:00.000Z'),
-        endAt: new Date('2024-09-27T19:00:00.000Z'),
-        userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-        user: { email: 'ethriel3695@gmail.com' },
-      },
-      {
-        id: 'clxcmr2d700012usb6rm3d5ps',
-        title: 'Ruby Gym',
-        startAt: new Date('2024-09-27T20:00:00.000Z'),
-        endAt: new Date('2024-09-27T23:00:00.000Z'),
-        userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-        user: { email: 'ethriel3695@gmail.com' },
-        color: 'rgba(206,208,219,1)',
-      },
-      {
-        id: 'clxcmr2d700012usb6rm3d5fs',
-        title: 'Ruby Gym',
-        startAt: new Date('2024-09-27T20:00:00.000Z'),
-        endAt: new Date('2024-09-27T23:00:00.000Z'),
-        userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
-        user: { email: 'ethriel3695@gmail.com' },
-        color: 'rgba(206,208,219,1)',
-      },
-    ],
+  },
+  async beforeEach() {
+    //   // 👇 Set the return value for the getUser function
+    withAuth.mockReturnValue(
+      Promise.resolve({
+        user: {
+          object: 'user',
+          id: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
+          email: 'ethriel3695@gmail.com',
+          emailVerified: true,
+          firstName: 'Reuben',
+          profilePictureUrl:
+            'https://workoscdn.com/images/v1/8STSQXZTLQob5euEiQbp1Oe1jttiuZtMiaWqYKCS2EU',
+          lastName: 'Ellis',
+          createdAt: '2024-09-28T13:41:04.750Z',
+          updatedAt: '2024-09-28T13:41:04.750Z',
+        },
+        sessionId: 'session',
+        accessToken: 'access',
+      })
+    );
   },
   // play: async ({ canvasElement }: any) => {
   //   const canvas = within(canvasElement);

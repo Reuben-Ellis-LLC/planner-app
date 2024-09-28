@@ -1,11 +1,11 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { getUser } from '#app/actions/user';
+import { withAuth } from '#app/actions/user';
 import { getEvents } from '#app/actions/events';
 import Planner from '#/components/ui/Planner';
 
 async function getData() {
-  const user = await getUser();
+  const user = await withAuth();
   const events = await getEvents();
   if (!events) {
     // This will activate the closest `error.js` Error Boundary

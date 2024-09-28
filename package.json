@@ -2,6 +2,7 @@
   "name": "planner-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,6 +25,10 @@
       "storybook": "./app/actions/user.mock.ts",
       "default": "./app/actions/user.ts"
     },
+    "#app/actions/events": {
+      "storybook": "./app/actions/events.mock.ts",
+      "default": "./app/actions/events.ts"
+    },
     "#*": [
       "./*",
       "./*.ts",
@@ -38,7 +43,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@vercel/postgres": "^0.10.0",
-    "@workos-inc/authkit-nextjs": "^0.10.1",
+    "@workos-inc/authkit-nextjs": "^0.11.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.441.0",
@@ -52,12 +57,13 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
     "@radix-ui/themes": "^3.1.1",
-    "@storybook/addon-essentials": "^8.3.3",
-    "@storybook/addon-links": "^8.3.3",
-    "@storybook/blocks": "^8.3.3",
-    "@storybook/nextjs": "^8.3.3",
-    "@storybook/react": "^8.3.3",
-    "@storybook/test": "^8.3.3",
+    "@storybook/addon-essentials": "^8.3.4",
+    "@storybook/addon-interactions": "^8.3.4",
+    "@storybook/addon-links": "^8.3.4",
+    "@storybook/blocks": "^8.3.4",
+    "@storybook/nextjs": "^8.3.4",
+    "@storybook/react": "^8.3.4",
+    "@storybook/test": "^8.3.4",
     "@types/node": "^22.4.2",
     "@types/react": "^18",
     "@types/react-color": "^3.0.12",
@@ -73,7 +79,7 @@
     "prisma-mock": "^0.10.3",
     "react-color": "^2.19.3",
     "react-to-print": "^2.15.1",
-    "storybook": "^8.3.3",
+    "storybook": "^8.3.4",
     "tailwindcss": "^3.4.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",
