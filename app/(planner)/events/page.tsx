@@ -2,7 +2,7 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import { withAuth } from '#app/actions/user';
 import { getEvents } from '#app/actions/events';
-import Planner from '#/components/ui/Planner';
+import Planner from '#components/ui/Planner';
 
 async function getData() {
   const user = await withAuth();

@@ -164,10 +164,10 @@ export default function Planner({
           <NextLink href="/print">Print</NextLink>
           <Popover>
             <PopoverTrigger>
-              <Button size="sm">
-                <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                {format(selectedDate, 'MMM d, yyyy')}
-              </Button>
+              {/* <Button size="sm"> */}
+              <CalendarDaysIcon className="mr-2 h-4 w-4" />
+              {format(selectedDate, 'MMM d, yyyy')}
+              {/* </Button> */}
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
@@ -183,9 +183,7 @@ export default function Planner({
             onOpenChange={setIsAddEventModalOpen}
           >
             <DialogTrigger>
-              <Button size="sm" onClick={() => setIsAddEventModalOpen(true)}>
-                Add Event
-              </Button>
+              <div onClick={() => setIsAddEventModalOpen(true)}>Add Event</div>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>

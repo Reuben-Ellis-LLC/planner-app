@@ -75,13 +75,12 @@ const Planner = ({
     setSelectedDate(selected?.from || currentDate);
   };
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current || null,
-  });
+  const contentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({ contentRef });
 
   return (
     <div>
-      <Button size="sm" onClick={handlePrint}>
+      <Button size="sm" onClick={() => handlePrint()}>
         Print
       </Button>
       <Popover>
@@ -103,7 +102,7 @@ const Planner = ({
           />
         </PopoverContent>
       </Popover>
-      <div>
+      <div ref={contentRef}>
         {dates.map((date, index) => (
           <PDF
             key={index}

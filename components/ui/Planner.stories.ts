@@ -67,11 +67,11 @@ export const Default: Story = {};
 
 export const CalendarDateChange: Story = {
   args: {
-    currentDate: new Date('2024-06-08:07:00:00Z-0600'),
+    currentDate: new Date('2024-09-28:07:00:00Z-0600'),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const calendarButton = await canvas.findByText('Jun 8, 2024');
+    const calendarButton = await canvas.findByText('Sep 28, 2024');
     await expect(calendarButton).toBeInTheDocument();
     await userEvent.click(calendarButton);
 
@@ -83,7 +83,7 @@ export const CalendarDateChange: Story = {
 
 export const AddEvent: Story = {
   args: {
-    currentDate: new Date('2024-06-08:07:00:00Z-0600'),
+    currentDate: new Date('2024-09-28:07:00:00Z-0600'),
   },
   play: async (context) => {
     //@ts-ignore - play will always be a function
@@ -94,14 +94,24 @@ export const AddEvent: Story = {
     await userEvent.click(eventButton);
     await userEvent.type(await screen.findByText('Title'), 'Test Event');
     await userEvent.click(await screen.findByText('Start'));
-    await userEvent.type(await screen.findByText('Start'), '2024-06-17T07:00');
-    // await userEvent.click(await screen.findByText('Add Event[role="dialog"]'));
-    await userEvent.click(screen.getByText('End'));
-    await userEvent.type(screen.getByText('End'), '2024-06-17T08:00');
-    // await userEvent.click(screen.getByText('Add Event[role="dialog"]'));
-    // await userEvent.click(document.querySelector('body'));
+    // await userEvent.type(await screen.findByText('Start'), '2024-09-28T07:00', {
+    //   delay: 100,
+    // });
+    await userEvent.click(await screen.findByText('End'));
+    // await userEvent.type(await screen.findByText('End'), '2024-09-28T08:00', {
+    //   delay: 100,
+    // });
     await userEvent.click(await screen.findByRole('combobox'));
-    await userEvent.click(await screen.findByText('Weekly'));
+    const selectOptions = await screen.findAllByRole('option');
+    const weeklyOption = selectOptions.find(
+      (option) => option.innerText === 'Weekly'
+    );
+    if (weeklyOption) {
+      await userEvent.click(weeklyOption);
+    } else {
+      throw new Error('Weekly option not found');
+    }
+    // await userEvent.click(await selectOption.children);
     // await userEvent.click(
     //   await queryByAttribute('id', screen, 'reference267132')
     // );
