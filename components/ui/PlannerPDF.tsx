@@ -80,28 +80,34 @@ const Planner = ({
 
   return (
     <div>
-      <Button size="sm" onClick={() => handlePrint()}>
-        Print
-      </Button>
-      <Popover>
-        <PopoverTrigger>
-          {/* <Button size="sm"> */}
-          <CalendarDaysIcon className="mr-2 h-4 w-4" />
-          {format(selectedDate, 'MMM d, yyyy')}
-          {/* </Button> */}
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            //@ts-ignore - onSelect is a prop of Calendar
-            onSelect={(selected: { from: Date; to: Date } | undefined) =>
-              handleSetRange(selected)
-            }
-            selected={selected}
-            numberOfMonths={2}
-          />
-        </PopoverContent>
-      </Popover>
+      <div className="flex flex-row m-1">
+        <Button
+          size="sm"
+          className="cursor-pointer m-1"
+          onClick={() => handlePrint()}
+        >
+          Print
+        </Button>
+        <Popover>
+          <PopoverTrigger className="m-1">
+            <Button size="sm">
+              <CalendarDaysIcon className="mr-2 h-4 w-4" />
+              {format(selectedDate, 'MMM d, yyyy')}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="range"
+              //@ts-ignore - onSelect is a prop of Calendar
+              onSelect={(selected: { from: Date; to: Date } | undefined) =>
+                handleSetRange(selected)
+              }
+              selected={selected}
+              numberOfMonths={2}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
       <div ref={contentRef}>
         {dates.map((date, index) => (
           <PDF

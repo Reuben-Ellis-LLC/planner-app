@@ -164,10 +164,10 @@ export default function Planner({
           <NextLink href="/print">Print</NextLink>
           <Popover>
             <PopoverTrigger>
-              {/* <Button size="sm"> */}
-              <CalendarDaysIcon className="mr-2 h-4 w-4" />
-              {format(selectedDate, 'MMM d, yyyy')}
-              {/* </Button> */}
+              <Button size="sm">
+                <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                {format(selectedDate, 'MMM d, yyyy')}
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar

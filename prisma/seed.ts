@@ -27,6 +27,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T10:00:00' + gmtOffset),
       endAt: new Date('2024-09-23T10:45:00' + gmtOffset),
+      color: '#4caf50',
     },
   });
   await prisma.event.create({
@@ -35,6 +36,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T13:30:00' + gmtOffset),
       endAt: new Date('2024-09-23T14:00:00' + gmtOffset),
+      color: '#9c27b0',
     },
   });
   await prisma.event.create({
@@ -43,6 +45,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T14:00:00' + gmtOffset),
       endAt: new Date('2024-09-23T14:30:00' + gmtOffset),
+      color: '#2196f3',
     },
   });
   await prisma.event.create({
@@ -51,6 +54,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T14:30:00' + gmtOffset),
       endAt: new Date('2024-09-23T15:00:00' + gmtOffset),
+      color: '#ffc107',
     },
   });
   await prisma.event.create({
@@ -59,6 +63,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T14:00:00' + gmtOffset),
       endAt: new Date('2024-09-23T14:30:00' + gmtOffset),
+      color: '#795548',
     },
   });
   await prisma.event.create({
@@ -67,15 +72,17 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-23T16:00:00' + gmtOffset),
       endAt: new Date('2024-09-23T18:00:00' + gmtOffset),
+      color: '#2196f3',
     },
   });
 
   await prisma.event.create({
     data: {
-      title: 'Ruby/Sophia Gym 4:00-7:00',
+      title: 'Ruby Gym 4:00-7:00',
       userId: user.id,
       startAt: new Date('2024-09-24T16:00:00' + gmtOffset),
       endAt: new Date('2024-09-24T19:00:00' + gmtOffset),
+      color: '#9c27b0',
     },
   });
   await prisma.event.create({
@@ -84,6 +91,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-24T18:00:00' + gmtOffset),
       endAt: new Date('2024-09-24T20:00:00' + gmtOffset),
+      color: '#2196f3',
     },
   });
 
@@ -93,6 +101,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-25T10:00:00' + gmtOffset),
       endAt: new Date('2024-09-25T16:30:00' + gmtOffset),
+      color: '#ff9800',
     },
   });
 
@@ -102,6 +111,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
       endAt: new Date('2024-09-26T17:00:00' + gmtOffset),
+      color: '#ff9800',
     },
   });
   await prisma.event.create({
@@ -110,6 +120,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
       endAt: new Date('2024-09-26T18:00:00' + gmtOffset),
+      color: '#2196f3',
     },
   });
   await prisma.event.create({
@@ -118,6 +129,7 @@ async function seed() {
       userId: user.id,
       startAt: new Date('2024-09-26T16:00:00' + gmtOffset),
       endAt: new Date('2024-09-26T19:00:00' + gmtOffset),
+      color: '#9c27b0',
     },
   });
 

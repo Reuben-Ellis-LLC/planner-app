@@ -14,7 +14,7 @@
     "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
+    "seed": "tsx prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
   },
   "imports": {
     "#lib/prisma": {
