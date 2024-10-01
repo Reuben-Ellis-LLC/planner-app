@@ -16,16 +16,16 @@ const meta = {
       {
         id: 'clxcmr2d700012usb6rm3d5us',
         title: 'Alex Gym',
-        startAt: new Date('2024-09-27T17:00:00.000Z'),
-        endAt: new Date('2024-09-27T19:00:00.000Z'),
+        startAt: '2024-09-27T17:00:00.000Z',
+        endAt: '2024-09-27T19:00:00.000Z',
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
       },
       {
         id: 'clxcmr2d700012usb6rm3d5ps',
         title: 'Ruby Gym',
-        startAt: new Date('2024-09-27T20:00:00.000Z'),
-        endAt: new Date('2024-09-27T23:00:00.000Z'),
+        startAt: '2024-09-27T20:00:00.000Z',
+        endAt: '2024-09-27T23:00:00.000Z',
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
@@ -33,8 +33,8 @@ const meta = {
       {
         id: 'clxcmr2d700012usb6rm3d5fs',
         title: 'Ruby Gym',
-        startAt: new Date('2024-09-27T20:00:00.000Z'),
-        endAt: new Date('2024-09-27T23:00:00.000Z'),
+        startAt: '2024-09-27T20:00:00.000Z',
+        endAt: '2024-09-27T23:00:00.000Z',
         userId: 'user_01HZYKPB4JWFPAADBPGHVRK5TY',
         user: { email: 'ethriel3695@gmail.com' },
         color: 'rgba(206,208,219,1)',
@@ -94,11 +94,11 @@ export const AddEvent: Story = {
     await userEvent.click(eventButton);
     await userEvent.type(await screen.findByText('Title'), 'Test Event');
     await userEvent.click(await screen.findByText('Start'));
-    // await userEvent.type(await screen.findByText('Start'), '2024-09-28T07:00', {
+    // await userEvent.type(await screen.findByText('Start'), '2024-10-01T12:00', {
     //   delay: 100,
     // });
     await userEvent.click(await screen.findByText('End'));
-    // await userEvent.type(await screen.findByText('End'), '2024-09-28T08:00', {
+    // await userEvent.type(await screen.findByText('End'), '2024-10-01T14:00', {
     //   delay: 100,
     // });
     await userEvent.click(await screen.findByRole('combobox'));

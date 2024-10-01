@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
 import { CirclePicker } from 'react-color';
+import { DateTime } from 'luxon';
 
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { Button } from './button';
@@ -60,8 +61,8 @@ type User = {
 type Event = {
   id?: string;
   title: string;
-  startAt: Date;
-  endAt: Date;
+  startAt: string;
+  endAt: string;
   userId: string;
   user?: { email: string };
   recurrence?: string;
@@ -70,8 +71,10 @@ type Event = {
   color?: string;
 };
 
+const dt = DateTime.now();
+
 export default function Planner({
-  currentDate = new Date(),
+  currentDate = new Date(Date.now()),
   user,
   events,
 }: {
@@ -110,12 +113,13 @@ export default function Planner({
     ['7:30', '19:30'],
     ['8:00', '20:00'],
   ];
-  const tzoffset = new Date().getTimezoneOffset() * 60000;
   const [newEvent, setNewEvent] = useState<Event>({
     id: '',
     title: '',
-    startAt: new Date(Date.now() - tzoffset),
-    endAt: new Date(Date.now() - tzoffset),
+    startAt: DateTime.fromISO(dt.toISO()).toFormat('yyyy-MM-dd T'),
+    endAt: DateTime.fromISO(dt.toISO())
+      .plus({ hours: 1 })
+      .toFormat('yyyy-MM-dd T'),
     recurrence: 'weekly',
     daysOfWeek: [],
     daysOfMonth: [],
@@ -124,10 +128,10 @@ export default function Planner({
     color: '#2196f3',
   });
 
-  newEvent.startAt.setSeconds(0);
-  newEvent.startAt.setMilliseconds(0);
-  newEvent.endAt.setSeconds(0);
-  newEvent.endAt.setMilliseconds(0);
+  // newEvent.startAt.setSeconds(0);
+  // newEvent.startAt.setMilliseconds(0);
+  // newEvent.endAt.setSeconds(0);
+  // newEvent.endAt.setMilliseconds(0);
 
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
@@ -213,21 +217,26 @@ export default function Planner({
                   <Input
                     id="start"
                     type="datetime-local"
-                    value={newEvent.startAt?.toISOString().slice(0, -1)}
+                    value={newEvent.startAt}
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        startAt: new Date(e.target.value),
+                        startAt: DateTime.fromISO(e.target.value).toFormat(
+                          'yyyy-MM-dd T'
+                        ),
+                        endAt: DateTime.fromISO(e.target.value)
+                          .plus({ hours: 2 })
+                          .toFormat('yyyy-MM-dd T'),
                       })
                     }
                     className="col-span-3"
                   />
-                  <input
+                  {/* <input
                     type="hidden"
                     id="timezone"
                     name="timezone"
                     value="-06:00"
-                  />
+                  /> */}
                 </div>
                 <div className="grid items-center grid-cols-4 gap-4">
                   <Label htmlFor="end" className="text-right">
@@ -236,11 +245,13 @@ export default function Planner({
                   <Input
                     id="end"
                     type="datetime-local"
-                    value={newEvent.endAt?.toISOString().slice(0, -1)}
+                    value={newEvent.endAt}
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        endAt: new Date(e.target.value),
+                        endAt: DateTime.fromISO(e.target.value).toFormat(
+                          'yyyy-MM-dd T'
+                        ),
                       })
                     }
                     className="col-span-3"
@@ -319,10 +330,10 @@ export default function Planner({
                     {userEvents
                       .filter((event) => {
                         const eventStart = new Date(event.startAt);
-                        const eventStartTime = `${event.startAt.getHours()}:${
-                          event.startAt.getMinutes() === 30
-                            ? event.startAt.getMinutes()
-                            : event.startAt.getMinutes() + '0'
+                        const eventStartTime = `${eventStart.getHours()}:${
+                          eventStart.getMinutes() === 30
+                            ? eventStart.getMinutes()
+                            : eventStart.getMinutes() + '0'
                         }`;
                         const eventEnd = new Date(event.endAt);
                         const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
