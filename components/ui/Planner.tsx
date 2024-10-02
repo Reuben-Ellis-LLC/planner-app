@@ -221,10 +221,10 @@ export default function Planner({
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        startAt: DateTime.fromISO(e.target.value).toFormat(
-                          'yyyy-MM-dd T'
-                        ),
-                        endAt: DateTime.fromISO(e.target.value)
+                        startAt: DateTime.fromISO(e.target.value, {
+                          zone: 'UTC',
+                        }).toFormat('yyyy-MM-dd T'),
+                        endAt: DateTime.fromISO(e.target.value, { zone: 'UTC' })
                           .plus({ hours: 2 })
                           .toFormat('yyyy-MM-dd T'),
                       })
@@ -249,9 +249,9 @@ export default function Planner({
                     onChange={(e) =>
                       setNewEvent({
                         ...newEvent,
-                        endAt: DateTime.fromISO(e.target.value).toFormat(
-                          'yyyy-MM-dd T'
-                        ),
+                        endAt: DateTime.fromISO(e.target.value, {
+                          zone: 'UTC',
+                        }).toFormat('yyyy-MM-dd T'),
                       })
                     }
                     className="col-span-3"

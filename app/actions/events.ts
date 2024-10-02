@@ -56,8 +56,8 @@ export async function createEvent(data: any, user: any) {
       data: {
         title: data.title,
         userId: user.id,
-        startAt: data.startAt,
-        endAt: data.endAt,
+        startAt: new Date(data.startAt),
+        endAt: new Date(data.endAt),
         color: data.color,
         // user: user,
       },
