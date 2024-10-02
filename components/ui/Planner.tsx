@@ -128,11 +128,6 @@ export default function Planner({
     color: '#2196f3',
   });
 
-  // newEvent.startAt.setSeconds(0);
-  // newEvent.startAt.setMilliseconds(0);
-  // newEvent.endAt.setSeconds(0);
-  // newEvent.endAt.setMilliseconds(0);
-
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
 
