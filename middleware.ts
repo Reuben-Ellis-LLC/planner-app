@@ -13,5 +13,13 @@ export default authkitMiddleware({ debug: true });
 // Leave this out if you want authentication on every page in your application
 // Match against the pages
 export const config = {
-  matcher: ['/', '/account', '/events/:path*', '/admin', '/print'],
+  matcher: [
+    '/',
+    '/account',
+    '/events/:path*',
+    '/admin',
+    '/print',
+    '/about',
+    '/pricing',
+  ],
 };

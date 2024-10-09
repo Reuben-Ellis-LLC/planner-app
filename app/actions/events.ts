@@ -59,9 +59,26 @@ export async function createEvent(data: any, user: any) {
         startAt: new Date(data.startAt),
         endAt: new Date(data.endAt),
         color: data.color,
-        // user: user,
       },
     });
     return event;
   }
+}
+
+export async function updateEvent(data: any) {
+  const event = await prisma.event.update({
+    where: { id: data.id },
+    data: {
+      title: data.title,
+      startAt: new Date(data.startAt),
+      endAt: new Date(data.endAt),
+      color: data.color,
+    },
+  });
+  return event;
+}
+
+export async function deleteEvent(id: string) {
+  const event = await prisma.event.delete({ where: { id } });
+  return event;
 }

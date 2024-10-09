@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useRef } from 'react';
+import NextLink from 'next/link';
 import { useReactToPrint } from 'react-to-print';
+import { LucidePrinter } from 'lucide-react';
 import { Calendar } from './calendar';
 import { addDays, format } from 'date-fns';
 import PDF from './PDF';
@@ -79,35 +81,41 @@ const Planner = ({
   const handlePrint = useReactToPrint({ contentRef });
 
   return (
-    <div>
-      <div className="flex flex-row m-1">
-        <Button
-          size="sm"
-          className="cursor-pointer m-1"
-          onClick={() => handlePrint()}
-        >
-          Print
-        </Button>
-        <Popover>
-          <PopoverTrigger className="m-1">
-            <Button size="sm">
-              <CalendarDaysIcon className="mr-2 h-4 w-4" />
-              {format(selectedDate, 'MMM d, yyyy')}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="range"
-              //@ts-ignore - onSelect is a prop of Calendar
-              onSelect={(selected: { from: Date; to: Date } | undefined) =>
-                handleSetRange(selected)
-              }
-              selected={selected}
-              numberOfMonths={2}
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
+    <div className="flex flex-col h-screen">
+      <header className="bg-gray-900 text-white p-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          <NextLink href="/">Home</NextLink>
+        </h1>
+        <div className="flex items-center gap-4">
+          <NextLink href="/events">Events</NextLink>
+          <Button
+            size="sm"
+            className="cursor-pointer"
+            onClick={() => handlePrint()}
+          >
+            <LucidePrinter className="h-4 w-4" />
+          </Button>
+          <Popover>
+            <PopoverTrigger>
+              <Button size="sm">
+                <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                {format(selectedDate, 'MMM d, yyyy')}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="range"
+                //@ts-ignore - onSelect is a prop of Calendar
+                onSelect={(selected: { from: Date; to: Date } | undefined) =>
+                  handleSetRange(selected)
+                }
+                selected={selected}
+                numberOfMonths={2}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+      </header>
       <div ref={contentRef}>
         {dates.map((date, index) => (
           <PDF

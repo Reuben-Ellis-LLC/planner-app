@@ -15,6 +15,7 @@ import {
   TableCell,
 } from './table';
 import { BlankTable } from './BlankTable';
+import { KidsTable } from './KidsTable';
 
 type Event = {
   id?: string;
@@ -78,70 +79,77 @@ export default function PDF({
   ];
   return (
     //   <div className="flex flex-col w-full h-dvh overflow-hidden"></div>
-    <div className="grid grid-cols-2 gap-4 planner-page">
-      <div className="grid grid-cols-1">
-        <Table className="text-xs">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Time</TableHead>
-              <TableHead>Events</TableHead>
-              <TableHead>{date.toLocaleDateString()}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((value) => (
-              <TableRow key={value[1]}>
-                <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs w-1/3">
-                  {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
-                </TableCell>
-                <TableCell className="p-0 w-2/3">
-                  <div>
-                    {userEvents
-                      //@ts-ignore - filter is a javascript array function
-                      .filter((event: Event) => {
-                        const eventStart = event.startAt;
-                        const eventStartTime = `${event.startAt.getHours()}:${
-                          event.startAt.getMinutes() === 30
-                            ? event.startAt.getMinutes()
-                            : event.startAt.getMinutes() + '0'
-                        }`;
-                        const eventEnd = new Date(event.endAt);
-                        const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
-                        const formattedSelectedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-
-                        // Convert the time to the correct format
-                        const eventHour = parseInt(value[1].split(':')[0]);
-                        const eventMinute = parseInt(value[1].split(':')[1]);
-                        const plannerCellTime = `${eventHour}:${
-                          eventMinute === 30 ? eventMinute : eventMinute + '0'
-                        }`;
-                        return (
-                          eventStartTime === plannerCellTime &&
-                          // eventTime < eventEnd &&
-                          formattedEventDate === formattedSelectedDate
-                        );
-                      })
-                      .map((event: Event) => {
-                        return (
-                          <div
-                            key={event.id}
-                            className="bg-blue-500 text-white rounded-lg text-xs"
-                            style={{ backgroundColor: event.color }}
-                          >
-                            {event.title}
-                          </div>
-                        );
-                      })}
-                  </div>
-                </TableCell>
+    <div className="planner-page">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1">
+          <Table className="text-xs">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[75px]">Time</TableHead>
+                <TableHead>Events</TableHead>
+                <TableHead>{date.toLocaleDateString()}</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data.map((value) => (
+                <TableRow key={value[1]}>
+                  <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+                    {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
+                  </TableCell>
+                  <TableCell className="">
+                    <div className="grid grid-cols-1">
+                      {userEvents
+                        //@ts-ignore - filter is a javascript array function
+                        .filter((event: Event) => {
+                          const eventStart = event.startAt;
+                          const eventStartTime = `${event.startAt.getHours()}:${
+                            event.startAt.getMinutes() === 30
+                              ? event.startAt.getMinutes()
+                              : event.startAt.getMinutes() + '0'
+                          }`;
+                          const eventEnd = new Date(event.endAt);
+                          const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
+                          const formattedSelectedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+
+                          // Convert the time to the correct format
+                          const eventHour = parseInt(value[1].split(':')[0]);
+                          const eventMinute = parseInt(value[1].split(':')[1]);
+                          const plannerCellTime = `${eventHour}:${
+                            eventMinute === 30 ? eventMinute : eventMinute + '0'
+                          }`;
+                          return (
+                            eventStartTime === plannerCellTime &&
+                            // eventTime < eventEnd &&
+                            formattedEventDate === formattedSelectedDate
+                          );
+                        })
+                        .map((event: Event) => {
+                          return (
+                            <div
+                              key={event.id}
+                              className="bg-blue-500 text-white rounded-lg p-1 text-xs"
+                              style={{ backgroundColor: event.color }}
+                            >
+                              {event.title}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="grid grid-cols-1">
+          <BlankTable sectionName={'Quests'} />
+          <KidsTable sectionName={'Kids'} />
+        </div>
       </div>
-      <div className="grid grid-cols-1">
-        <BlankTable sectionName={'Kids'} />
-        <BlankTable sectionName={'Notes'} />
+      <div className="grid grid-cols-3 mt-4">
+        <div className="grid grid-cols-1">Breakfast: ____________________</div>
+        <div className="grid grid-cols-1">Lunch: ____________________</div>
+        <div className="grid grid-cols-1">Dinner: ____________________</div>
       </div>
       <style jsx global>{`
         @media print {
@@ -156,7 +164,10 @@ export default function PDF({
             page-break-after: always;
             height: 100vh;
             box-sizing: border-box;
-            padding: 2cm;
+            padding-top: 1cm;
+            padding-bottom: 1cm;
+            padding-left: 1px;
+            padding-right: 1px;
             border: none !important;
           }
           .planner-page:last-child {

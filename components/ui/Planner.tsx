@@ -8,30 +8,25 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
-import { CirclePicker } from 'react-color';
 import { DateTime } from 'luxon';
-
-import { Popover, PopoverTrigger, PopoverContent } from './popover';
-import { Button } from './button';
-import { Calendar } from './calendar';
 import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from './dialog';
-import { Label } from './label';
-import { Input } from './input';
+  AlertDialog,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@radix-ui/react-alert-dialog';
+import { Button } from '#components/ui/button';
 import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from './select';
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '#components/ui/popover';
+import { Calendar } from '#components/ui/calendar';
 import {
   Table,
   TableHeader,
@@ -39,8 +34,9 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from './table';
-import { createEvent } from '#app/actions/events';
+} from '#components/ui/table';
+import { EventForm } from '#components/ui/EventForm';
+import { createEvent, updateEvent, deleteEvent } from '#app/actions/events';
 
 type User = {
   sessionId: string;
@@ -130,6 +126,7 @@ export default function Planner({
 
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleAddEvent = async () => {
     setEvents([...userEvents, newEvent]);
@@ -147,6 +144,10 @@ export default function Planner({
     setIsAddEventModalOpen(false);
   };
   // TODO: Add delete event functionality
+  const handleDeleteEvent = async (id: string) => {
+    setEvents(userEvents.filter((event) => event.id !== id));
+    await deleteEvent(id);
+  };
   // const handleDeleteEvent = (id: string) => {
   //   setEvents(events.filter((event) => event.id !== id));
   // };
@@ -177,133 +178,13 @@ export default function Planner({
               />
             </PopoverContent>
           </Popover>
-          <Dialog
-            open={isAddEventModalOpen}
-            onOpenChange={setIsAddEventModalOpen}
-          >
-            <DialogTrigger>
-              <div onClick={() => setIsAddEventModalOpen(true)}>Add Event</div>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Add Event</DialogTitle>
-                <DialogDescription>
-                  Fill out the details for your new event.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid items-center grid-cols-4 gap-4">
-                  <Label htmlFor="title" className="text-right">
-                    Title
-                  </Label>
-                  <Input
-                    id="title"
-                    value={newEvent.title}
-                    onChange={(e) =>
-                      setNewEvent({ ...newEvent, title: e.target.value })
-                    }
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid items-center grid-cols-4 gap-4">
-                  <Label htmlFor="start" className="text-right">
-                    Start
-                  </Label>
-                  <Input
-                    id="start"
-                    type="datetime-local"
-                    value={newEvent.startAt}
-                    onChange={(e) =>
-                      setNewEvent({
-                        ...newEvent,
-                        startAt: DateTime.fromISO(e.target.value, {
-                          zone: 'UTC',
-                        }).toFormat('yyyy-MM-dd T'),
-                        endAt: DateTime.fromISO(e.target.value, { zone: 'UTC' })
-                          .plus({ hours: 2 })
-                          .toFormat('yyyy-MM-dd T'),
-                      })
-                    }
-                    className="col-span-3"
-                  />
-                  {/* <input
-                    type="hidden"
-                    id="timezone"
-                    name="timezone"
-                    value="-06:00"
-                  /> */}
-                </div>
-                <div className="grid items-center grid-cols-4 gap-4">
-                  <Label htmlFor="end" className="text-right">
-                    End
-                  </Label>
-                  <Input
-                    id="end"
-                    type="datetime-local"
-                    value={newEvent.endAt}
-                    onChange={(e) =>
-                      setNewEvent({
-                        ...newEvent,
-                        endAt: DateTime.fromISO(e.target.value, {
-                          zone: 'UTC',
-                        }).toFormat('yyyy-MM-dd T'),
-                      })
-                    }
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid items-center grid-cols-4 gap-4">
-                  <Label htmlFor="recurrence" className="text-right">
-                    Recurrence
-                  </Label>
-                  <Select
-                    value={newEvent.recurrence}
-                    onValueChange={(value) =>
-                      setNewEvent({ ...newEvent, recurrence: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select recurrence" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid items-center grid-cols-4 gap-4">
-                  <Label htmlFor="color" className="text-right">
-                    Color
-                  </Label>
-                  <CirclePicker
-                    colors={[
-                      '#f44336',
-                      '#9c27b0',
-                      '#2196f3',
-                      '#4caf50',
-                      '#ffeb3b',
-                      '#ffc107',
-                      '#ff9800',
-                      '#795548',
-                    ]}
-                    onChangeComplete={(value: any) =>
-                      setNewEvent({ ...newEvent, color: value.hex })
-                    }
-                  />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button
-                  variant="outline"
-                  onClick={() => setIsAddEventModalOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button onClick={handleAddEvent}>Save</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <EventForm
+            isAddEventModalOpen={isAddEventModalOpen}
+            setIsAddEventModalOpen={setIsAddEventModalOpen}
+            newEvent={newEvent}
+            setNewEvent={setNewEvent}
+            handleAddEvent={handleAddEvent}
+          />
         </div>
       </header>
       <div className="flex-1">
@@ -351,6 +232,7 @@ export default function Planner({
                           key={event.id}
                           className="bg-blue-500 text-white rounded-lg p-1 text-xs"
                           style={{ backgroundColor: event.color }}
+                          onClick={() => setOpen(true)}
                         >
                           {event.title}
                         </div>
@@ -362,6 +244,35 @@ export default function Planner({
           </TableBody>
         </Table>
       </div>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger></AlertDialogTrigger>
+        <AlertDialogPortal>
+          <AlertDialogOverlay className="AlertDialogOverlay" />
+          <AlertDialogContent className="AlertDialogContent sm:max-w-[425px]">
+            <AlertDialogTitle className="AlertDialogTitle">
+              Are you absolutely sure?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="AlertDialogDescription">
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+            <div
+              style={{
+                display: 'flex',
+                gap: 25,
+                justifyContent: 'flex-end',
+              }}
+            >
+              <AlertDialogCancel asChild>
+                <button className="Button mauve">Cancel</button>
+              </AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <button className="Button red">Yes, delete account</button>
+              </AlertDialogAction>
+            </div>
+          </AlertDialogContent>
+        </AlertDialogPortal>
+      </AlertDialog>
     </div>
   );
 }

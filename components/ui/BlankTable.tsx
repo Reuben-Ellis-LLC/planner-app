@@ -19,40 +19,64 @@ export const BlankTable = ({ sectionName }: any) => (
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>*</TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
         </TableRow>
       </TableBody>
     </Table>
