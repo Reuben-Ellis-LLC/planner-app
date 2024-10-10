@@ -28,7 +28,6 @@ export const EventForm = ({
   setNewEvent,
   handleAddEvent,
 }: any) => {
-  const [open, setOpen] = React.useState(false);
   return (
     <Dialog open={isAddEventModalOpen} onOpenChange={setIsAddEventModalOpen}>
       <DialogTrigger>
@@ -145,12 +144,15 @@ export const EventForm = ({
         </div>
         <DialogFooter>
           <Button
+            className="cursor-pointer"
             variant="outline"
             onClick={() => setIsAddEventModalOpen(false)}
           >
             Cancel
           </Button>
-          <Button onClick={handleAddEvent}>Save</Button>
+          <Button className="cursor-pointer" onClick={handleAddEvent}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

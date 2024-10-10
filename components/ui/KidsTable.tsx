@@ -10,7 +10,7 @@ import {
 } from './table';
 
 export const KidsTable = ({ sectionName }: any) => (
-  <div className="overflow-x-auto">
+  <div className="overflow-x-auto mt-3">
     <Table>
       <TableHeader>
         <TableRow>
@@ -202,7 +202,6 @@ export const KidsTable = ({ sectionName }: any) => (
             <input type="checkbox" />
           </TableCell>
         </TableRow>
-        <hr />
       </TableBody>
     </Table>
   </div>

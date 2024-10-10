@@ -9,17 +9,7 @@ import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { format } from 'date-fns';
 import { DateTime } from 'luxon';
-import {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from '@radix-ui/react-alert-dialog';
+import { AlertDialog } from '#components/ui/AlertDialog';
 import { Button } from '#components/ui/button';
 import {
   Popover,
@@ -112,8 +102,12 @@ export default function Planner({
   const [newEvent, setNewEvent] = useState<Event>({
     id: '',
     title: '',
-    startAt: DateTime.fromISO(dt.toISO()).toFormat('yyyy-MM-dd T'),
-    endAt: DateTime.fromISO(dt.toISO())
+    startAt: DateTime.fromISO(dt.toISO(), {
+      zone: 'UTC',
+    }).toFormat('yyyy-MM-dd T'),
+    endAt: DateTime.fromISO(dt.toISO(), {
+      zone: 'UTC',
+    })
       .plus({ hours: 1 })
       .toFormat('yyyy-MM-dd T'),
     recurrence: 'weekly',
@@ -145,8 +139,10 @@ export default function Planner({
   };
   // TODO: Add delete event functionality
   const handleDeleteEvent = async (id: string) => {
+    if (!id) return;
     setEvents(userEvents.filter((event) => event.id !== id));
     await deleteEvent(id);
+    setOpen(false);
   };
   // const handleDeleteEvent = (id: string) => {
   //   setEvents(events.filter((event) => event.id !== id));
@@ -227,15 +223,17 @@ export default function Planner({
                           formattedEventDate === formattedSelectedDate
                         );
                       })
-                      .map((event) => (
-                        <div
-                          key={event.id}
-                          className="bg-blue-500 text-white rounded-lg p-1 text-xs"
-                          style={{ backgroundColor: event.color }}
-                          onClick={() => setOpen(true)}
-                        >
-                          {event.title}
-                        </div>
+                      .map((event, id) => (
+                        <AlertDialog
+                          key={id}
+                          event={event}
+                          open={open}
+                          setOpen={setOpen}
+                          title={'Are you sure you want to delete this event?'}
+                          description={`This action cannot be undone. This will
+                                permanently delete your event.`}
+                          handleDeleteEvent={handleDeleteEvent}
+                        />
                       ))}
                   </div>
                 </TableCell>
@@ -244,35 +242,6 @@ export default function Planner({
           </TableBody>
         </Table>
       </div>
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger></AlertDialogTrigger>
-        <AlertDialogPortal>
-          <AlertDialogOverlay className="AlertDialogOverlay" />
-          <AlertDialogContent className="AlertDialogContent sm:max-w-[425px]">
-            <AlertDialogTitle className="AlertDialogTitle">
-              Are you absolutely sure?
-            </AlertDialogTitle>
-            <AlertDialogDescription className="AlertDialogDescription">
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
-            <div
-              style={{
-                display: 'flex',
-                gap: 25,
-                justifyContent: 'flex-end',
-              }}
-            >
-              <AlertDialogCancel asChild>
-                <button className="Button mauve">Cancel</button>
-              </AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <button className="Button red">Yes, delete account</button>
-              </AlertDialogAction>
-            </div>
-          </AlertDialogContent>
-        </AlertDialogPortal>
-      </AlertDialog>
     </div>
   );
 }
