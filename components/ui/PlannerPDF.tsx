@@ -5,9 +5,14 @@ import { useReactToPrint } from 'react-to-print';
 import { LucidePrinter } from 'lucide-react';
 import { Calendar } from './calendar';
 import { addDays, format } from 'date-fns';
-import PDF from './PDF';
-import { Popover, PopoverTrigger, PopoverContent } from './popover';
-import { Button } from './button';
+import PDF from '#components/ui/PDF';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '#components/ui/popover';
+import { Button } from '#components/ui/button';
+import { MonthlyCalendar } from '#components/ui/MonthlyCalendar';
 
 type Event = {
   id?: string;
@@ -46,6 +51,23 @@ function filterEvents(events: Event[], dates: Date[]) {
   });
 }
 
+const getMonthsBetweenDates = (startDate: Date, endDate: Date) => {
+  const months = [];
+  let currentDate = new Date(startDate);
+
+  // Normalize the dates to the first of each month
+  currentDate.setDate(1);
+  const normalizedEndDate = new Date(endDate);
+  normalizedEndDate.setDate(1);
+
+  while (currentDate <= normalizedEndDate) {
+    months.push(new Date(currentDate));
+    currentDate.setMonth(currentDate.getMonth() + 1);
+  }
+
+  return months;
+};
+
 const Planner = ({
   currentDate = new Date(),
   events,
@@ -58,17 +80,17 @@ const Planner = ({
     to: addDays(new Date(), 4),
   };
 
-  const [selected, setSelected] = useState<
-    { from: Date; to: Date } | undefined
-  >();
+  const [selected, setSelected] = useState<{ from: Date; to: Date }>({
+    from: new Date(),
+    to: addDays(new Date(), 4),
+  });
   const [selectedDate, setSelectedDate] = useState(currentDate);
-  const componentRef = useRef<HTMLDivElement | null>(null);
   const [dates, setDates] = useState(
     generateDateArray(selected || initialRange)
   );
   const [updatedEvents, setEvents] = useState(filterEvents(events, dates));
 
-  const handleSetRange = (selected: { from: Date; to: Date } | undefined) => {
+  const handleSetRange = (selected: { from: Date; to: Date }) => {
     setSelected(selected);
     setDates(generateDateArray(selected || initialRange));
     setEvents(
@@ -79,6 +101,7 @@ const Planner = ({
 
   const contentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ contentRef });
+  const months = getMonthsBetweenDates(selected.from, selected.to);
 
   return (
     <div className="flex flex-col h-screen">
@@ -106,7 +129,7 @@ const Planner = ({
               <Calendar
                 mode="range"
                 //@ts-ignore - onSelect is a prop of Calendar
-                onSelect={(selected: { from: Date; to: Date } | undefined) =>
+                onSelect={(selected: { from: Date; to: Date }) =>
                   handleSetRange(selected)
                 }
                 selected={selected}
@@ -125,7 +148,42 @@ const Planner = ({
             date={date}
           />
         ))}
+        <div className="printable-calendar">
+          {months.map((date, index) => (
+            <MonthlyCalendar
+              key={index}
+              currentDate={date}
+              events={updatedEvents}
+            />
+          ))}
+        </div>
       </div>
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: A4;
+            margin: 0;
+            margin-left: 0.6cm;
+          }
+          body {
+            margin: 0;
+            margin-left: 0.6cm;
+          }
+          .planner-page {
+            page-break-after: always;
+            height: 100vh;
+            box-sizing: border-box;
+            padding-top: 1cm;
+            padding-bottom: 1cm;
+            padding-left: 1px;
+            padding-right: 1px;
+            border: none !important;
+          }
+          .planner-page:last-child {
+            page-break-after: auto;
+          }
+        }
+      `}</style>
     </div>
   );
 };

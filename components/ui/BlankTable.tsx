@@ -68,11 +68,6 @@ export const BlankTable = ({ sectionName }: any) => (
             <input type="checkbox" />
           </TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-        </TableRow>
       </TableBody>
     </Table>
   </div>

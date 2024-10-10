@@ -13,9 +13,9 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from './table';
-import { BlankTable } from './BlankTable';
-import { KidsTable } from './KidsTable';
+} from '#components/ui/table';
+import { BlankTable } from '#components/ui/BlankTable';
+import { KidsTable } from '#components/ui/KidsTable';
 
 type Event = {
   id?: string;
@@ -78,7 +78,6 @@ export default function PDF({
     ['8:00', '20:00'],
   ];
   return (
-    //   <div className="flex flex-col w-full h-dvh overflow-hidden"></div>
     <div className="planner-page">
       <div className="grid grid-cols-2 gap-4">
         <div className="grid grid-cols-1">
@@ -93,11 +92,11 @@ export default function PDF({
             <TableBody>
               {data.map((value) => (
                 <TableRow key={value[1]}>
-                  <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+                  <TableCell className="text-gray-500 dark:text-gray-400 font-medium text-xs w-[75px]">
                     {`${value[0]} ${parseInt(value[1], 10) < 12 ? 'AM' : 'PM'}`}
                   </TableCell>
-                  <TableCell className="">
-                    <div className="grid grid-cols-1">
+                  <TableCell>
+                    <div>
                       {userEvents
                         //@ts-ignore - filter is a javascript array function
                         .filter((event: Event) => {
@@ -107,7 +106,6 @@ export default function PDF({
                               ? event.startAt.getMinutes()
                               : event.startAt.getMinutes() + '0'
                           }`;
-                          const eventEnd = new Date(event.endAt);
                           const formattedEventDate = `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}`;
                           const formattedSelectedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
@@ -136,6 +134,7 @@ export default function PDF({
                         })}
                     </div>
                   </TableCell>
+                  <TableCell className="w-[100px]"></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -151,30 +150,6 @@ export default function PDF({
         <div className="grid grid-cols-1">Lunch: ____________________</div>
         <div className="grid grid-cols-1">Dinner: ____________________</div>
       </div>
-      <style jsx global>{`
-        @media print {
-          @page {
-            size: A4;
-            margin: 0;
-          }
-          body {
-            margin: 0;
-          }
-          .planner-page {
-            page-break-after: always;
-            height: 100vh;
-            box-sizing: border-box;
-            padding-top: 1cm;
-            padding-bottom: 1cm;
-            padding-left: 1px;
-            padding-right: 1px;
-            border: none !important;
-          }
-          .planner-page:last-child {
-            page-break-after: auto;
-          }
-        }
-      `}</style>
     </div>
   );
 }

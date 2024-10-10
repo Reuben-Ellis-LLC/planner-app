@@ -79,11 +79,11 @@ export const KidsTable = ({ sectionName }: any) => (
         <TableRow>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">Personal reading</span>
+            <span className="pl-1">Reading</span>
           </TableCell>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">Personal reading</span>
+            <span className="pl-1">Reading</span>
           </TableCell>
           <TableCell>
             <input type="checkbox" />
