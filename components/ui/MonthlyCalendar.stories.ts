@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { within, userEvent, expect, screen, fn } from '@storybook/test';
 
-import PlannerPDF from '#components/ui/PlannerPDF';
+import { MonthlyCalendar } from '#components/ui/MonthlyCalendar';
 
 const meta = {
-  title: 'Printable PDF/PlannerPDF',
-  component: PlannerPDF,
+  title: 'Printable PDF/MonthlyCalendar',
+  component: MonthlyCalendar,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
@@ -42,7 +42,7 @@ const meta = {
       },
     ],
   },
-} satisfies Meta<typeof PlannerPDF>;
+} satisfies Meta<typeof MonthlyCalendar>;
 
 export default meta;
 

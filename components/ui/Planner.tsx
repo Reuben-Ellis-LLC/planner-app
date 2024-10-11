@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '#components/ui/popover';
-import { Calendar } from '#components/ui/calendar';
+import { Calendar } from '#components/ui/Calendar';
 import {
   Table,
   TableHeader,

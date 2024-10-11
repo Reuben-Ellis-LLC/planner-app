@@ -20,7 +20,7 @@ const preview: Preview = {
   // 👇 Set the return value for the getUser function
   async beforeEach() {
     // Fixed dates for consistent screenshots
-    MockDate.set('2024-09-28T12:24:02Z');
+    MockDate.set(new Date());
     withAuth.mockResolvedValue({
       user: {
         object: 'user',
@@ -42,28 +42,31 @@ const preview: Preview = {
       {
         id: 'clxcmr2d700012usb6rm3d5us',
         title: 'Alex Gym',
-        startAt: new Date('2024-09-28T17:00:00.000Z'),
-        endAt: new Date('2024-09-28T19:00:00.000Z'),
+        startAt: new Date('2024-10-10T20:00:00.000Z'),
+        endAt: new Date('2024-10-10T23:00:00.000Z'),
         userId: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         user: { email: 'ethriel3695@gmail.com' },
+        color: '#2196f3',
       },
       // @ts-ignore
       {
         id: 'clxcmr2d700012usb6rm3d5ps',
         title: 'Ruby Gym',
-        startAt: new Date('2024-09-28T20:00:00.000Z'),
-        endAt: new Date('2024-09-28T23:00:00.000Z'),
+        startAt: new Date('2024-10-10T20:00:00.000Z'),
+        endAt: new Date('2024-10-10T23:00:00.000Z'),
         userId: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         user: { email: 'ethriel3695@gmail.com' },
+        color: '#9c27b0',
       },
       // @ts-ignore
       {
         id: 'clxcmr2d700012usb6rm3d5fs',
         title: 'Ruby Gym',
-        startAt: new Date('2024-09-28T20:00:00.000Z'),
-        endAt: new Date('2024-09-28T23:00:00.000Z'),
+        startAt: new Date('2024-10-15T20:00:00.000Z'),
+        endAt: new Date('2024-10-15T23:00:00.000Z'),
         userId: 'user_01J808XJ81KB2NDT9F4KWDYR9Z',
         user: { email: 'ethriel3695@gmail.com' },
+        color: '#9c27b0',
       },
     ]);
   },

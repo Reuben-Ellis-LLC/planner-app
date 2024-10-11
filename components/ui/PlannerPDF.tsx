@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import NextLink from 'next/link';
 import { useReactToPrint } from 'react-to-print';
 import { LucidePrinter } from 'lucide-react';
-import { Calendar } from './calendar';
 import { addDays, format } from 'date-fns';
+import { Calendar } from '#components/ui/Calendar';
 import PDF from '#components/ui/PDF';
 import {
   Popover,
