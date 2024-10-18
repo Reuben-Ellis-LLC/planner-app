@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import { LucidePrinter } from 'lucide-react';
 import { addDays, format } from 'date-fns';
 import { Calendar } from '#components/ui/Calendar';
-import PDF from '#components/ui/PDF';
+import ReusablePDF from '#components/ui/ReusablePDF';
 import {
   Popover,
   PopoverTrigger,
@@ -45,7 +45,8 @@ function filterEvents(events: Event[], dates: Date[]) {
     return dates.some((date) => {
       return (
         `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}` ===
-        `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+          `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}` &&
+        `${event.recurrence}` !== 'daily'
       );
     });
   });
@@ -68,12 +69,14 @@ const getMonthsBetweenDates = (startDate: Date, endDate: Date) => {
   return months;
 };
 
-const Planner = ({
+const ReusablePlanner = ({
   currentDate = new Date(),
   events,
+  kid,
 }: {
   currentDate: Date;
   events: Event[];
+  kid?: string;
 }) => {
   const initialRange = {
     from: new Date(),
@@ -82,7 +85,7 @@ const Planner = ({
 
   const [selected, setSelected] = useState<{ from: Date; to: Date }>({
     from: new Date(),
-    to: addDays(new Date(), 4),
+    to: addDays(new Date(), 6),
   });
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [dates, setDates] = useState(
@@ -102,14 +105,6 @@ const Planner = ({
   const contentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ contentRef });
   const months = getMonthsBetweenDates(selected.from, selected.to);
-
-  const lines = Array.from({ length: 20 }, (_, index) => (
-    <div
-      key={index}
-      className="w-full border-b border-gray-300 my-6"
-      style={{ minHeight: '1.5rem' }}
-    />
-  ));
 
   return (
     <div className="flex flex-col h-screen">
@@ -149,14 +144,15 @@ const Planner = ({
       </header>
       <div ref={contentRef}>
         {dates.map((date, index) => (
-          <PDF
+          <ReusablePDF
             key={index}
             //@ts-ignore - filteredEvents is a prop of PDF
             events={updatedEvents}
             date={date}
+            kid={kid}
           />
         ))}
-        <div className="printable-calendar">
+        {/* <div className="printable-calendar">
           {months.map((date, index) => (
             <MonthlyCalendar
               key={index}
@@ -164,11 +160,7 @@ const Planner = ({
               events={updatedEvents}
             />
           ))}
-        </div>
-        <div className="min-h-screen bg-white p-8">
-          <h2 className="text-3xl font-bold text-center mb-8">Future Dates</h2>
-          <div className="max-w-4xl mx-auto">{lines}</div>
-        </div>
+        </div> */}
       </div>
       <style jsx global>{`
         @media print {
@@ -200,7 +192,7 @@ const Planner = ({
   );
 };
 
-export default Planner;
+export default ReusablePlanner;
 
 function CalendarDaysIcon(props: any) {
   return (

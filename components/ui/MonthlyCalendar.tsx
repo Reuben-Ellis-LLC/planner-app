@@ -13,6 +13,12 @@ type Event = {
   color?: string;
 };
 
+function compare(a: Event, b: Event) {
+  if (a.endAt < b.endAt) return -1;
+  if (a.endAt > b.endAt) return 1;
+  return 0;
+}
+
 export const MonthlyCalendar = ({
   currentDate,
   events,
@@ -30,6 +36,8 @@ export const MonthlyCalendar = ({
     currentDate.getMonth(),
     1
   ).getDay();
+
+  events.sort(compare);
 
   const renderCalendarDays = () => {
     const days = [];
@@ -69,7 +77,7 @@ export const MonthlyCalendar = ({
               key={index}
               className=" bg-blue-100 text-white p-1 mt-1 rounded"
               style={{
-                fontSize: '.45rem',
+                fontSize: '.55rem',
                 lineHeight: '12px',
                 backgroundColor: event.color,
               }}
@@ -85,7 +93,7 @@ export const MonthlyCalendar = ({
   };
 
   return (
-    <div className="p-4 planner-page">
+    <div className="p-4">
       <h2 className="text-xl font-bold mb-4 text-center">
         {currentDate.toLocaleString('default', {
           month: 'long',

@@ -39,7 +39,6 @@ export async function createEvent(data: any, user: any) {
       task.endAt = newEndDate;
 
       // Push the task into the tasks array
-      delete task.recurrence;
       delete task.daysOfWeek;
       delete task.daysOfMonth;
       tasks.push(task);
@@ -59,6 +58,7 @@ export async function createEvent(data: any, user: any) {
         startAt: new Date(data.startAt),
         endAt: new Date(data.endAt),
         color: data.color,
+        recurrence: data.recurrence,
       },
     });
     return event;
@@ -73,6 +73,7 @@ export async function updateEvent(data: any) {
       startAt: new Date(data.startAt),
       endAt: new Date(data.endAt),
       color: data.color,
+      recurrence: data.recurrence,
     },
   });
   return event;

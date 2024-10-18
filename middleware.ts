@@ -21,5 +21,8 @@ export const config = {
     '/print',
     '/about',
     '/pricing',
+    '/alex',
+    '/ruby',
+    '/simplifiedPlanner',
   ],
 };

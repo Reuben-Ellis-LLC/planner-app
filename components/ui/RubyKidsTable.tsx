@@ -9,14 +9,12 @@ import {
   TableCell,
 } from './table';
 
-export const KidsTable = ({ sectionName }: any) => (
+export const RubyKidsTable = ({ sectionName, isLargePlanner = false }: any) => (
   <div className="overflow-x-auto mt-3">
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">{'Alex'}</TableHead>
-          <TableHead className="w-[100px]">{'Ruby'}</TableHead>
-          <TableHead className="w-[100px]">{'Enzo'}</TableHead>
+          <TableHead className="w-[100px]">{sectionName}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -25,55 +23,23 @@ export const KidsTable = ({ sectionName }: any) => (
             <input type="checkbox" />
             <span className="pl-1">Miacademy</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Miacademy</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Reading</span>
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">School books</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">School books</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">School</span>
-          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Duolingo</span>
-          </TableCell>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">Bob books</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Craft</span>
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">Handwriting</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Handwriting</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Activity</span>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -81,53 +47,23 @@ export const KidsTable = ({ sectionName }: any) => (
             <input type="checkbox" />
             <span className="pl-1">Reading</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Reading</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Gym</span>
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">Family reading</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Family reading</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Chore</span>
-          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Fiddle</span>
-          </TableCell>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">ETC</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">Piano</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Piano</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -135,25 +71,11 @@ export const KidsTable = ({ sectionName }: any) => (
             <input type="checkbox" />
             <span className="pl-1">Voice</span>
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Voice</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
             <span className="pl-1">Gym</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-            <span className="pl-1">Gym</span>
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -161,10 +83,36 @@ export const KidsTable = ({ sectionName }: any) => (
             <input type="checkbox" />
             <span className="pl-1">Chore</span>
           </TableCell>
+        </TableRow>
+        <TableRow>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">Chore</span>
+            <span className="pl-1">What I did good:</span>
           </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+            <span className="pl-1">What I want to work on:</span>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+            <span className="pl-1">I am grateful for:</span>
+          </TableCell>
+        </TableRow>
+        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
@@ -173,9 +121,8 @@ export const KidsTable = ({ sectionName }: any) => (
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
+        </TableRow>
+        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
@@ -184,24 +131,41 @@ export const KidsTable = ({ sectionName }: any) => (
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
         </TableRow>
+        {isLargePlanner && (
+          <>
+            <TableRow>
+              <TableCell>
+                <input type="checkbox" />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <input type="checkbox" />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <input type="checkbox" />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <input type="checkbox" />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <input type="checkbox" />
+              </TableCell>
+            </TableRow>
+          </>
+        )}
       </TableBody>
     </Table>
   </div>

@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import { LucidePrinter } from 'lucide-react';
 import { addDays, format } from 'date-fns';
 import { Calendar } from '#components/ui/Calendar';
-import PDF from '#components/ui/PDF';
+import ReusablePDF from '#components/ui/ReusablePDF';
 import {
   Popover,
   PopoverTrigger,
@@ -13,6 +13,10 @@ import {
 } from '#components/ui/popover';
 import { Button } from '#components/ui/button';
 import { MonthlyCalendar } from '#components/ui/MonthlyCalendar';
+import { CustomQuestsTable } from './CustomQuestsTable';
+import { AlexKidsTable } from './AlexKidsTable';
+import { RubyKidsTable } from './RubyKidsTable';
+import Image from 'next/image';
 
 type Event = {
   id?: string;
@@ -42,10 +46,12 @@ function generateDateArray(dateRange: { from: Date; to: Date }) {
 function filterEvents(events: Event[], dates: Date[]) {
   return events.filter((event: Event) => {
     const eventStart = event.startAt;
+
     return dates.some((date) => {
       return (
         `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}` ===
-        `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+          `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}` &&
+        `${event.recurrence}` === 'weekly'
       );
     });
   });
@@ -68,7 +74,7 @@ const getMonthsBetweenDates = (startDate: Date, endDate: Date) => {
   return months;
 };
 
-const Planner = ({
+const SimplifiedPlanner = ({
   currentDate = new Date(),
   events,
 }: {
@@ -82,7 +88,7 @@ const Planner = ({
 
   const [selected, setSelected] = useState<{ from: Date; to: Date }>({
     from: new Date(),
-    to: addDays(new Date(), 4),
+    to: addDays(new Date(), 6),
   });
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [dates, setDates] = useState(
@@ -103,13 +109,9 @@ const Planner = ({
   const handlePrint = useReactToPrint({ contentRef });
   const months = getMonthsBetweenDates(selected.from, selected.to);
 
-  const lines = Array.from({ length: 20 }, (_, index) => (
-    <div
-      key={index}
-      className="w-full border-b border-gray-300 my-6"
-      style={{ minHeight: '1.5rem' }}
-    />
-  ));
+  const kidsEvents = updatedEvents.filter((event: Event) => {
+    return event.title.includes('Ruby') || event.title.includes('Alex');
+  });
 
   return (
     <div className="flex flex-col h-screen">
@@ -148,40 +150,143 @@ const Planner = ({
         </div>
       </header>
       <div ref={contentRef}>
-        {dates.map((date, index) => (
-          <PDF
-            key={index}
-            //@ts-ignore - filteredEvents is a prop of PDF
-            events={updatedEvents}
-            date={date}
-          />
-        ))}
-        <div className="printable-calendar">
-          {months.map((date, index) => (
-            <MonthlyCalendar
-              key={index}
-              currentDate={date}
-              events={updatedEvents}
-            />
-          ))}
+        <div className="simplified-planner-page">
+          <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1">
+              <h1
+                className="text-9xl text-center m-auto"
+                style={{ transform: 'translateY(200px)' }}
+              >
+                Alex's Planner
+              </h1>
+            </div>
+            <div className="grid grid-cols-1">
+              <h1
+                className="text-9xl text-center m-auto"
+                style={{ transform: 'translateY(200px)' }}
+              >
+                Ruby's Planner
+              </h1>
+            </div>
+          </div>
         </div>
-        <div className="min-h-screen bg-white p-8">
-          <h2 className="text-3xl font-bold text-center mb-8">Future Dates</h2>
-          <div className="max-w-4xl mx-auto">{lines}</div>
+        {dates.map((date, index) => (
+          <div className="simplified-planner-page">
+            <div className="grid grid-cols-2">
+              <div className="grid grid-cols-1">
+                <AlexKidsTable sectionName={''} />
+                {/* <CustomQuestsTable sectionName={'Quests'} /> */}
+              </div>
+              <div className="grid grid-cols-1">
+                <RubyKidsTable sectionName={''} />
+                {/* <CustomQuestsTable sectionName={'Quests'} /> */}
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* <div className="simplified-planner-page grid grid-cols-2">
+          <Image
+            className="grid grid-cols-1"
+            src="/october-2024.png"
+            alt="october 2024 calendar"
+            width={600}
+            height={850}
+          />
+          <Image
+            className="grid grid-cols-1"
+            src="/november-2024.png"
+            alt="november 2024 calendar"
+            width={600}
+            height={850}
+          />
+          <Image
+            className="grid grid-cols-1"
+            src="/december-2024.png"
+            alt="december 2024 calendar"
+            width={600}
+            height={850}
+          /> */}
+        {/* {months.map((date, index) => (
+          <div className="simplified-planner-page">
+            <div className="grid grid-cols-2">
+              <div className="grid grid-cols-1">
+                <MonthlyCalendar
+                  key={index}
+                  currentDate={date}
+                  events={kidsEvents}
+                />
+              </div>
+              <div className="grid grid-cols-1">
+                <MonthlyCalendar
+                  key={index}
+                  currentDate={date}
+                  events={kidsEvents}
+                />
+              </div>
+            </div>
+          </div>
+        ))} */}
+        <div className="simplified-planner-page grid grid-cols-2">
+          <Image
+            className="grid grid-cols-1"
+            src="/october-2024.png"
+            alt="october 2024 calendar"
+            width={1050}
+            height={850}
+          />
+          <Image
+            className="grid grid-cols-1"
+            src="/october-2024.png"
+            alt="october 2024 calendar"
+            width={1050}
+            height={850}
+          />
+        </div>
+        <div className="simplified-planner-page grid grid-cols-2">
+          <Image
+            className="grid grid-cols-1"
+            src="/november-2024.png"
+            alt="november 2024 calendar"
+            width={1050}
+            height={850}
+          />
+
+          <Image
+            className="grid grid-cols-1"
+            src="/november-2024.png"
+            alt="november 2024 calendar"
+            width={1050}
+            height={850}
+          />
+        </div>
+        <div className="simplified-planner-page grid grid-cols-2">
+          <Image
+            className="grid grid-cols-1"
+            src="/december-2024.png"
+            alt="december 2024 calendar"
+            width={1050}
+            height={850}
+          />
+          <Image
+            className="grid grid-cols-1"
+            src="/december-2024.png"
+            alt="december 2024 calendar"
+            width={1050}
+            height={850}
+          />
         </div>
       </div>
       <style jsx global>{`
-        @media print {
+        @media print and (orientation: landscape) {
           @page {
-            size: A4;
             margin: 0;
-            margin-left: 0.6cm;
+            margin-left: 0.3cm;
           }
           body {
             margin: 0;
-            margin-left: 0.6cm;
+            margin-left: 0.3cm;
           }
-          .planner-page {
+          .simplified-planner-page {
             page-break-after: always;
             height: 100vh;
             box-sizing: border-box;
@@ -191,7 +296,7 @@ const Planner = ({
             padding-right: 1px;
             border: none !important;
           }
-          .planner-page:last-child {
+          .simplified-planner-page:last-child {
             page-break-after: auto;
           }
         }
@@ -200,7 +305,7 @@ const Planner = ({
   );
 };
 
-export default Planner;
+export default SimplifiedPlanner;
 
 function CalendarDaysIcon(props: any) {
   return (
