@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     experimentalRSC: true,
   },
   addons: [// '@storybook/addon-links',
-  '@storybook/addon-essentials', '@chromatic-com/storybook', '@storybook/experimental-addon-test', '@storybook/addon-a11y'],
+  '@storybook/addon-essentials', '@storybook/experimental-addon-test', '@storybook/addon-a11y', '@chromatic-com/storybook'],
   framework: '@storybook/experimental-nextjs-vite',
   staticDirs: ['../public'],
 };

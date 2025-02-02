@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { within, userEvent, expect, screen, fn } from '@storybook/test';
 
-import { allModes } from '../../.storybook/modes';
+// import { allModes } from '../../.storybook/modes';
 import PlannerPDF from '#components/ui/PlannerPDF';
 
 const meta = {
@@ -10,12 +10,12 @@ const meta = {
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
-    chromatic: {
-      modes: {
-        printFiveByEight: allModes['printFiveByEight'],
-        printEightFiveByEleven: allModes['printEightFiveByEleven'],
-      },
-    },
+    // chromatic: {
+    //   modes: {
+    //     printFiveByEight: allModes['printFiveByEight'],
+    //     printEightFiveByEleven: allModes['printEightFiveByEleven'],
+    //   },
+    // },
   },
   args: {
     currentDate: new Date(),
