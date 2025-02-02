@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import { StorybookConfig } from '@storybook/experimental-nextjs-vite';
 
 const config: StorybookConfig = {
   stories: [
@@ -8,16 +8,9 @@ const config: StorybookConfig = {
   features: {
     experimentalRSC: true,
   },
-  addons: [
-    // '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    // '@chromatic-com/storybook',
-  ],
-  framework: {
-    name: '@storybook/nextjs',
-    options: {},
-  },
+  addons: [// '@storybook/addon-links',
+  '@storybook/addon-essentials', '@chromatic-com/storybook', '@storybook/experimental-addon-test', '@storybook/addon-a11y'],
+  framework: '@storybook/experimental-nextjs-vite',
   staticDirs: ['../public'],
 };
 export default config;

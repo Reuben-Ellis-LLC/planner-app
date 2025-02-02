@@ -22,8 +22,24 @@ export const BlankTable = ({ sectionName }: any) => (
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
@@ -32,38 +48,24 @@ export const BlankTable = ({ sectionName }: any) => (
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
-        </TableRow>
-        <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>

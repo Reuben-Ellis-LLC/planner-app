@@ -21,11 +21,14 @@ export async function getEvents() {
 
 export async function createEvent(data: any, user: any) {
   const tasks = [];
+  console.log('data', data);
   if (data.recurrence === 'weekly') {
     // Loop through the number of weeks and create a new task for each week
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 24; i++) {
       // Clone the task data for each week
       const task = { ...data };
+
+      console.log('task', task);
 
       // Calculate the task date for this occurrence
       const newStartDate = new Date(data.startAt);

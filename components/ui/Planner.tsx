@@ -124,6 +124,7 @@ export default function Planner({
 
   const handleAddEvent = async () => {
     setEvents([...userEvents, newEvent]);
+    console.log('newEvent', newEvent);
     setNewEvent({
       title: newEvent.title,
       startAt: newEvent.startAt,
@@ -134,7 +135,7 @@ export default function Planner({
       userId: user?.user.id,
       color: newEvent.color,
     });
-    await createEvent(newEvent, user.user);
+    // await createEvent(newEvent, user.user);
     setIsAddEventModalOpen(false);
   };
   // TODO: Add delete event functionality

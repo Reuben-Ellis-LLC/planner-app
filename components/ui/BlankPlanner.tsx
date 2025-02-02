@@ -1,18 +1,20 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import NextLink from 'next/link';
+import Image from 'next/image';
 import { useReactToPrint } from 'react-to-print';
 import { LucidePrinter } from 'lucide-react';
 import { addDays, format } from 'date-fns';
 import { Calendar } from '#components/ui/Calendar';
-import PDF from '#components/ui/PDF';
+import BlankPDF from '#components/ui/BlankPDF';
+import { BlankNotes } from '#components/ui/BlankNotes';
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from '#components/ui/popover';
 import { Button } from '#components/ui/button';
-import { MonthlyCalendar } from '#components/ui/MonthlyCalendar';
+import { BlankMonthlyCalendar } from './BlankMonthlyCalendar';
 
 type Event = {
   id?: string;
@@ -45,7 +47,8 @@ function filterEvents(events: Event[], dates: Date[]) {
     return dates.some((date) => {
       return (
         `${eventStart.getDate()}-${eventStart.getMonth()}-${eventStart.getFullYear()}` ===
-        `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+          `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}` &&
+        `${event.recurrence}` !== 'daily'
       );
     });
   });
@@ -68,13 +71,7 @@ const getMonthsBetweenDates = (startDate: Date, endDate: Date) => {
   return months;
 };
 
-const Planner = ({
-  currentDate = new Date(),
-  events,
-}: {
-  currentDate: Date;
-  events: Event[];
-}) => {
+const BlankPlanner = ({ currentDate = new Date() }: { currentDate: Date }) => {
   const initialRange = {
     from: new Date(),
     to: addDays(new Date(), 4),
@@ -82,34 +79,24 @@ const Planner = ({
 
   const [selected, setSelected] = useState<{ from: Date; to: Date }>({
     from: new Date(),
-    to: addDays(new Date(), 4),
+    to: addDays(new Date(), 6),
   });
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [dates, setDates] = useState(
     generateDateArray(selected || initialRange)
   );
-  const [updatedEvents, setEvents] = useState(filterEvents(events, dates));
+  const [updatedEvents, setEvents] = useState(filterEvents([], dates));
 
   const handleSetRange = (selected: { from: Date; to: Date }) => {
     setSelected(selected);
     setDates(generateDateArray(selected || initialRange));
-    setEvents(
-      filterEvents(events, generateDateArray(selected || initialRange))
-    );
+    setEvents(filterEvents([], generateDateArray(selected || initialRange)));
     setSelectedDate(selected?.from || currentDate);
   };
 
   const contentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ contentRef });
   const months = getMonthsBetweenDates(selected.from, selected.to);
-
-  const lines = Array.from({ length: 20 }, (_, index) => (
-    <div
-      key={index}
-      className="w-full border-b border-gray-300 my-6"
-      style={{ minHeight: '1.5rem' }}
-    />
-  ));
 
   return (
     <div className="flex flex-col h-screen">
@@ -147,16 +134,31 @@ const Planner = ({
           </Popover>
         </div>
       </header>
-      <div className="grid grid-cols-1" ref={contentRef}>
-        {dates.map((date, index) => (
-          <PDF
-            key={index}
-            //@ts-ignore - filteredEvents is a prop of PDF
-            events={updatedEvents}
-            date={date}
+      <div ref={contentRef}>
+        <div className="cover-page">
+          <Image
+            src="/planner-page-cover.png"
+            width={1000}
+            height={1000}
+            alt="Blank Planner Cover Page"
           />
+        </div>
+        <BlankNotes />
+        {dates.map((date, index) => (
+          <>
+            <BlankPDF
+              key={index}
+              //@ts-ignore - filteredEvents is a prop of PDF
+              events={updatedEvents}
+              date={date}
+            />
+            <BlankNotes />
+          </>
         ))}
-        <div className="printable-calendar">
+        <BlankMonthlyCalendar />
+        <BlankNotes />
+        <BlankNotes />
+        {/* <div className="printable-calendar">
           {months.map((date, index) => (
             <MonthlyCalendar
               key={index}
@@ -164,28 +166,19 @@ const Planner = ({
               events={updatedEvents}
             />
           ))}
-        </div>
-        <div className="min-h-screen bg-white p-8">
-          <h2 className="text-3xl font-bold text-center mb-8">Future Dates</h2>
-          <div className="max-w-4xl mx-auto">{lines}</div>
-        </div>
+        </div> */}
       </div>
       <style jsx global>{`
         @media print {
           @page {
-            size: landscape;
+            size: A4;
             margin: 0;
-            margin-left: 0.6cm;
-            margin-right: 0.4cm;
           }
           body {
             margin: 0;
-            margin-left: 0.6cm;
-            margin-right: 0.4cm;
           }
-          .planner-page:nth-child(odd) {
+          .planner-page {
             page-break-after: always;
-            page-break-inside: avoid; /* Avoid breaking content across pages */
             height: 100vh;
             box-sizing: border-box;
             padding-top: 1cm;
@@ -193,17 +186,17 @@ const Planner = ({
             padding-left: 1px;
             padding-right: 1px;
             border: none !important;
+            margin-left: 1cm !important;
+            margin-right: 0.1cm !important;
           }
-          .planner-page:nth-child(even) {
-            page-break-after: never;
-            page-break-inside: avoid; /* Avoid breaking content across pages */
-            print-orientation: landscape;
+          .cover-page {
+            page-break-after: always;
             height: 100vh;
             box-sizing: border-box;
             padding-top: 1cm;
             padding-bottom: 1cm;
-            padding-left: 1px;
-            padding-right: 1px;
+            margin-left: 0.1cm !important;
+            margin-right: 0.1cm !important;
             border: none !important;
           }
           .planner-page:last-child {
@@ -215,7 +208,7 @@ const Planner = ({
   );
 };
 
-export default Planner;
+export default BlankPlanner;
 
 function CalendarDaysIcon(props: any) {
   return (

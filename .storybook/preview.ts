@@ -16,6 +16,35 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
+    viewport: {
+      viewports: {
+        mobile: { name: 'mobile', styles: { width: '450px', height: '952px' } },
+        smTablet: {
+          name: 'small tablet',
+          styles: { width: '640px', height: '800px' },
+        },
+        printFiveByEight: {
+          name: 'print 5x8',
+          styles: { width: '5in', height: '8in' },
+        },
+        tablet: {
+          name: 'tablet',
+          styles: { width: '1024px', height: '1000px' },
+        },
+        printEightFiveByEleven: {
+          name: 'print 8.5x11',
+          styles: { width: '8.5in', height: '11in' },
+        },
+        laptop: {
+          name: 'laptop',
+          styles: { width: '1440px', height: '900px' },
+        },
+        desktop: {
+          name: 'desktop',
+          styles: { width: '1920px', height: '1080px' },
+        },
+      },
+    },
   },
   // 👇 Set the return value for the getUser function
   async beforeEach() {

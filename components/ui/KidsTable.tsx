@@ -181,27 +181,36 @@ export const KidsTable = ({ sectionName }: any) => (
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        {/* <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow> */}
       </TableBody>
     </Table>
   </div>

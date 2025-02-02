@@ -14,7 +14,9 @@ export const CustomQuestsTable = ({ sectionName }: any) => (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px] text-center">{sectionName}</TableHead>
+          <TableHead className="w-[100px] text-center text-sm">
+            {sectionName}
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -41,7 +43,6 @@ export const CustomQuestsTable = ({ sectionName }: any) => (
         <TableRow>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">What I did good</span>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -52,7 +53,6 @@ export const CustomQuestsTable = ({ sectionName }: any) => (
         <TableRow>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">What I want to work on</span>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -63,13 +63,91 @@ export const CustomQuestsTable = ({ sectionName }: any) => (
         <TableRow>
           <TableCell>
             <input type="checkbox" />
-            <span className="pl-1">I am grateful for</span>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
             <input type="checkbox" />
           </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <input type="checkbox" />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <span className="pl-1 text-sm">What I am grateful for:</span>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="h-8"></TableCell>
         </TableRow>
       </TableBody>
     </Table>

@@ -16,8 +16,8 @@ CREATE TABLE "Event" (
     "title" TEXT NOT NULL,
     "startAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "endAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "color" TEXT,
     "recurrence" TEXT,
+    "color" TEXT,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")

@@ -39,6 +39,8 @@ export async function SignInButton({
           type="submit"
           className="text-sm h-5 cursor-pointer font-medium hover:underline underline-offset-4"
           variant={variant}
+          role="button"
+          title="Sign Out"
         >
           Sign Out
         </Button>
@@ -49,6 +51,7 @@ export async function SignInButton({
   return (
     <Button
       asChild
+      title="Sign In"
       size={large ? '3' : '2'}
       className={cn(
         'text-sm h-5 cursor-pointer font-medium hover:underline underline-offset-4',

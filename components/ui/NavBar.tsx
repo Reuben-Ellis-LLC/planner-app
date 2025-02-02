@@ -14,9 +14,10 @@ export const NavBar = ({ user, getSignInUrl, signOut }: any) => {
         <PlannerIcon className="h-8 w-8" />
         <span className="sr-only">Planner App</span>
       </NextLink>
-      <nav className="ml-auto flex gap-4 sm:gap-6">
+      <nav title="Navigation" className="ml-auto flex gap-4 sm:gap-6">
         <NextLink
           href="/about"
+          title="About"
           className="text-sm font-medium hover:underline underline-offset-4"
           prefetch={false}
         >
@@ -24,6 +25,7 @@ export const NavBar = ({ user, getSignInUrl, signOut }: any) => {
         </NextLink>
         <NextLink
           href="/pricing"
+          title="Pricing"
           className="text-sm font-medium hover:underline underline-offset-4"
           prefetch={false}
         >
@@ -32,6 +34,7 @@ export const NavBar = ({ user, getSignInUrl, signOut }: any) => {
         {user && (
           <>
             <NextLink
+              title="Events"
               href="/events"
               className="text-sm font-medium hover:underline underline-offset-4"
               prefetch={false}
@@ -39,6 +42,7 @@ export const NavBar = ({ user, getSignInUrl, signOut }: any) => {
               Events
             </NextLink>
             <NextLink
+              title="Print"
               href="/print"
               className="text-sm font-medium hover:underline underline-offset-4"
               prefetch={false}
@@ -51,6 +55,7 @@ export const NavBar = ({ user, getSignInUrl, signOut }: any) => {
           user={user}
           getSignInUrl={getSignInUrl}
           signOut={signOut}
+          variant="soft"
         />
       </nav>
     </header>
