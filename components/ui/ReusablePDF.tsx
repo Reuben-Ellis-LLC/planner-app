@@ -112,8 +112,8 @@ export default function ReusablePDF({
                           const formattedSelectedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
 
                           // Convert the time to the correct format
-                          const eventHour = parseInt(value[1].split(':')[0]);
-                          const eventMinute = parseInt(value[1].split(':')[1]);
+                          const eventHour = parseInt(value[1]?.split(':')[0]);
+                          const eventMinute = parseInt(value[1]?.split(':')[1]);
                           const plannerCellTime = `${eventHour}:${
                             eventMinute === 30 ? eventMinute : eventMinute + '0'
                           }`;

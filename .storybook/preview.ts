@@ -46,6 +46,7 @@ const preview: Preview = {
       },
     },
   },
+
   // 👇 Set the return value for the getUser function
   async beforeEach() {
     // Fixed dates for consistent screenshots
@@ -99,6 +100,8 @@ const preview: Preview = {
       },
     ]);
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;

@@ -213,8 +213,8 @@ export default function Planner({
                         const formattedSelectedDate = `${selectedDate.getDate()}-${selectedDate.getMonth()}-${selectedDate.getFullYear()}`;
 
                         // Convert the time to the correct format
-                        const eventHour = parseInt(value[1].split(':')[0]);
-                        const eventMinute = parseInt(value[1].split(':')[1]);
+                        const eventHour = parseInt(value[1]?.split(':')[0]);
+                        const eventMinute = parseInt(value[1]?.split(':')[1]);
                         const plannerCellTime = `${eventHour}:${
                           eventMinute === 30 ? eventMinute : eventMinute + '0'
                         }`;
